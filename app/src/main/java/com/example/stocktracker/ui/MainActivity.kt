@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocktracker.R
 import com.example.stocktracker.adapter.StockAdapter
+import com.example.stocktracker.common.FavouriteList
 import com.example.stocktracker.common.ItemClickListener
 import com.example.stocktracker.databinding.ActivityMainBinding
 import com.example.stocktracker.entity.Stock
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
 
     override fun changeFavouriteList(stockItem: Stock) {
         Toast.makeText(this, stockItem.symbol, Toast.LENGTH_SHORT).show()
-        stockViewModel.addItem(stockItem)
+        FavouriteList.addItem(stockItem)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

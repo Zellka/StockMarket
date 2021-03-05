@@ -10,19 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocktracker.R
 import com.example.stocktracker.adapter.StockAdapter
+import com.example.stocktracker.common.FavouriteList
 import com.example.stocktracker.common.ItemClickListener
 import com.example.stocktracker.entity.Stock
-import com.example.stocktracker.viewmodel.StockViewModel
 
 class FavouriteActivity : AppCompatActivity(), ItemClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: StockAdapter
-    private lateinit var stockViewModel: StockViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setHomeButtonEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -30,15 +29,14 @@ class FavouriteActivity : AppCompatActivity(), ItemClickListener {
 
         recyclerView = findViewById(R.id.recycler_view)
         adapter = StockAdapter(this)
-        stockViewModel = ViewModelProviders.of(this).get(StockViewModel::class.java)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter.setList(stockViewModel.getFavouriteList())
+        adapter.setList(FavouriteList.getFavouriteList())
         recyclerView.adapter = adapter
     }
 
     override fun changeFavouriteList(stockItem: Stock) {
         Toast.makeText(this, stockItem.symbol, Toast.LENGTH_SHORT).show()
-        stockViewModel.addItem(stockItem)
+        FavouriteList.addItem(stockItem)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -50,4 +48,6 @@ class FavouriteActivity : AppCompatActivity(), ItemClickListener {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
 }
