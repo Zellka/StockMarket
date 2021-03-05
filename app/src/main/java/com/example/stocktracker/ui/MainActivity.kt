@@ -23,7 +23,6 @@ import com.example.stocktracker.entity.Stock
 import com.example.stocktracker.viewmodel.StockViewModel
 import io.paperdb.Paper
 
-
 class MainActivity : AppCompatActivity(), ItemClickListener {
 
     lateinit var binding: ActivityMainBinding
@@ -62,6 +61,10 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
     override fun changeFavouriteList(stockItem: Stock) {
         Toast.makeText(this, stockItem.symbol, Toast.LENGTH_SHORT).show()
         FavouriteList.addItem(stockItem)
+    }
+
+    override fun showDetailsStock(stockItem: Stock) {
+        Toast.makeText(this, stockItem.symbol, Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
