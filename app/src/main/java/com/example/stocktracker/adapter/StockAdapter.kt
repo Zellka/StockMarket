@@ -11,7 +11,6 @@ import com.example.stocktracker.R
 import com.example.stocktracker.common.ItemClickListener
 import com.example.stocktracker.databinding.StockItemBinding
 import com.example.stocktracker.entity.Stock
-import com.example.stocktracker.ui.MainActivity
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -57,7 +56,7 @@ class StockAdapter(private var listener: ItemClickListener) :
         fun bind(data: Stock, listener: ItemClickListener, position: Int) {
             binding.stock = data
             binding.btnAddToFavourite.setOnClickListener {
-                listener.addToFavouriteList(data)
+                listener.changeFavouriteList(data)
             }
             binding.executePendingBindings()
         }
