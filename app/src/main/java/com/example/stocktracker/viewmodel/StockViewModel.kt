@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.stocktracker.api.NetworkClient
 import com.example.stocktracker.api.RetrofitServices
 import com.example.stocktracker.entity.Stock
-import io.paperdb.Paper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,25 +36,6 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
                 stocks.value = "err"
             }
         })
-    }
-    fun addItem(stockItem: Stock) {
-        val favouriteList = getFavouriteList()
-
-        val targetItem = favouriteList.singleOrNull { it.symbol == stockItem.symbol }
-        if (targetItem == null) {
-            favouriteList.add(stockItem)
-        } else{
-            favouriteList.remove(stockItem)
-        }
-        saveStock(favouriteList)
-    }
-
-    private fun saveStock(stock: MutableList<Stock>) {
-        Paper.book().write("stock", stock)
-    }
-
-    fun getFavouriteList(): MutableList<Stock> {
-        return Paper.book().read("stock", mutableListOf())
     }
 
     private fun isNetworkConnected(context: Context): Boolean {
