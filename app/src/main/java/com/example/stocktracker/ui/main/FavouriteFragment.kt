@@ -27,6 +27,7 @@ class FavouriteFragment : Fragment(), ItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        stockViewModel = ViewModelProviders.of(this).get(StockViewModel::class.java)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -34,7 +35,6 @@ class FavouriteFragment : Fragment(), ItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        stockViewModel = ViewModelProviders.of(this).get(StockViewModel::class.java)
         return inflater.inflate(R.layout.fragment_stock, container, false)
     }
 
