@@ -3,6 +3,7 @@ package com.example.stocktracker.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.stocktracker.R
+import com.example.stocktracker.ui.main.StockFragment
 import io.paperdb.Paper
 
 class MainActivity : AppCompatActivity(){

@@ -1,4 +1,4 @@
-package com.example.stocktracker.ui
+package com.example.stocktracker.ui.main
 
 import com.example.stocktracker.R
 import android.os.Bundle

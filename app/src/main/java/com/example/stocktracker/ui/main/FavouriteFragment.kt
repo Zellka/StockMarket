@@ -1,4 +1,4 @@
-package com.example.stocktracker.ui
+package com.example.stocktracker.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
