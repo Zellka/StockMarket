@@ -40,6 +40,9 @@ class StockAdapter(private var listener: ItemClickListener) :
     override fun onBindViewHolder(holder: StockAdapter.StockViewHolder, position: Int) {
         val item = stockFilterList[position]
         holder.bind(item, listener, position)
+        holder.itemView.setOnClickListener {
+            listener.showDetailsStock(item)
+        }
     }
 
     override fun getItemCount(): Int {
