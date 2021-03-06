@@ -1,19 +1,21 @@
 package com.example.stocktracker.ui.main
 
-import com.example.stocktracker.R
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.stocktracker.R
 import com.example.stocktracker.adapter.StockAdapter
 import com.example.stocktracker.common.ItemClickListener
 import com.example.stocktracker.entity.Stock
+import com.example.stocktracker.ui.detail.CardActivity
 import com.example.stocktracker.viewmodel.StockViewModel
-import androidx.appcompat.widget.SearchView
 
 class StockFragment : Fragment(), ItemClickListener {
 
@@ -62,7 +64,9 @@ class StockFragment : Fragment(), ItemClickListener {
     }
 
     override fun showDetailsStock(stockItem: Stock) {
-        Toast.makeText(this.context, stockItem.symbol, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this.context, stockItem.symbol, Toast.LENGTH_SHORT).show()
+        val intent = Intent(this.context, CardActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

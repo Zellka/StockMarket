@@ -1,5 +1,6 @@
 package com.example.stocktracker.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -15,6 +16,7 @@ import com.example.stocktracker.R
 import com.example.stocktracker.adapter.StockAdapter
 import com.example.stocktracker.common.ItemClickListener
 import com.example.stocktracker.entity.Stock
+import com.example.stocktracker.ui.detail.CardActivity
 import com.example.stocktracker.viewmodel.StockViewModel
 
 class FavouriteFragment : Fragment(), ItemClickListener {
@@ -66,6 +68,8 @@ class FavouriteFragment : Fragment(), ItemClickListener {
     }
 
     override fun showDetailsStock(stockItem: Stock) {
-        Toast.makeText(this.context, stockItem.symbol, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this.context, stockItem.symbol, Toast.LENGTH_SHORT).show()
+        val intent = Intent(this.context, CardActivity::class.java)
+        startActivity(intent)
     }
 }

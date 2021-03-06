@@ -17,8 +17,6 @@ import kotlin.collections.ArrayList
 class StockAdapter(private var listener: ItemClickListener) :
     RecyclerView.Adapter<StockAdapter.StockViewHolder>(), Filterable {
 
-    //private var listener: ItemClickListener = MainActivity()
-
     private var stocks: MutableList<Stock> = ArrayList()
     private var stockFilterList: MutableList<Stock> = ArrayList()
 
