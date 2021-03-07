@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -34,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/img_stock"
-                android:text="@{stock.symbol}" />
+                android:text="@{stock.ticker}" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_add_to_favourite"
@@ -49,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name_ticker"
                 android:layout_toRightOf="@+id/img_stock"
-                android:text="@{stock.name}" />
+                android:text="@{stock.companyName}" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/price_current"
@@ -64,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/price_current"
-                android:text="@{stock.change}" />
+                android:text="@{stock.changes}" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/change_percentage"
