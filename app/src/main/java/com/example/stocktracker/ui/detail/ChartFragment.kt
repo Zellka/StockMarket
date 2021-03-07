@@ -27,7 +27,7 @@ class ChartFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(title: String) =
-            NewsFragment().apply {
+            ChartFragment().apply {
                 arguments = Bundle().apply {
                     putString("title", title)
                 }

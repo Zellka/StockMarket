@@ -11,5 +11,5 @@ interface RetrofitServices {
     fun getStocks(): Call<MutableList<Stock>>
 
     @GET("stock_news?apikey=2803cae49d539d5020e02b9de8803106")
-    fun getNews(@Query("tickers") ticker: String): Call<MutableList<News>>
+    fun getNews(@Query("tickers") tickers: String): Call<MutableList<News>>
 }

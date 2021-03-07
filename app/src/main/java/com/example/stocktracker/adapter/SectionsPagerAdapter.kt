@@ -7,12 +7,10 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.stocktracker.R
 import com.example.stocktracker.ui.detail.ChartFragment
 import com.example.stocktracker.ui.detail.NewsFragment
-import com.example.stocktracker.ui.detail.ProfileFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
-    R.string.tab_text_2,
-    R.string.tab_text_3
+    R.string.tab_text_2
 )
 
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, val title: String) :
@@ -20,10 +18,9 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, va
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> ChartFragment()
+            0 -> ChartFragment.newInstance(title)
             1 -> NewsFragment.newInstance(title)
-            2 -> ProfileFragment()
-            else -> ChartFragment()
+            else -> ChartFragment.newInstance(title)
         }
     }
 
@@ -32,6 +29,6 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, va
     }
 
     override fun getCount(): Int {
-        return 3
+        return 2
     }
 }
