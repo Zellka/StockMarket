@@ -14,13 +14,16 @@ class CardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card)
+        val arguments = intent.extras
+        val title = arguments!!["title"].toString()
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
-        supportActionBar!!.setTitle(R.string.app_name)
+        supportActionBar!!.title = title
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, title)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)

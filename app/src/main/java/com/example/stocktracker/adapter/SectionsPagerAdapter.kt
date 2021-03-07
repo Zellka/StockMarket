@@ -15,13 +15,13 @@ private val TAB_TITLES = arrayOf(
     R.string.tab_text_3
 )
 
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
+class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, val title: String) :
     FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> ChartFragment()
-            1 -> NewsFragment()
+            1 -> NewsFragment.newInstance(title)
             2 -> ProfileFragment()
             else -> ChartFragment()
         }

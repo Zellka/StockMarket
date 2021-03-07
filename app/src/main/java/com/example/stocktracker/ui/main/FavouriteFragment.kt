@@ -63,13 +63,13 @@ class FavouriteFragment : Fragment(), ItemClickListener {
     }
 
     override fun changeFavouriteList(stockItem: Stock) {
-        Toast.makeText(this.context, stockItem.symbol, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this.context, stockItem.ticker, Toast.LENGTH_SHORT).show()
         stockViewModel.updateItem(stockItem)
     }
 
     override fun showDetailsStock(stockItem: Stock) {
-        //Toast.makeText(this.context, stockItem.symbol, Toast.LENGTH_SHORT).show()
         val intent = Intent(this.context, CardActivity::class.java)
+        intent.putExtra("title", stockItem.ticker)
         startActivity(intent)
     }
 }

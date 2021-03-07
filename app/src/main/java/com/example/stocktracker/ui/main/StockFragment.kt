@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -31,6 +32,11 @@ class StockFragment : Fragment(), ItemClickListener {
         setHasOptionsMenu(true)
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,7 +48,7 @@ class StockFragment : Fragment(), ItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         stockViewModel.getAllStockList()
 
-        progressBar = view.findViewById(R.id.progressBar)
+        progressBar = view.findViewById(R.id.progress_bar)
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         adapter = StockAdapter(this)
@@ -59,13 +65,13 @@ class StockFragment : Fragment(), ItemClickListener {
     }
 
     override fun changeFavouriteList(stockItem: Stock) {
-        Toast.makeText(this.context, stockItem.symbol, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this.context, stockItem.ticker, Toast.LENGTH_SHORT).show()
         stockViewModel.updateItem(stockItem)
     }
 
     override fun showDetailsStock(stockItem: Stock) {
-        //Toast.makeText(this.context, stockItem.symbol, Toast.LENGTH_SHORT).show()
         val intent = Intent(this.context, CardActivity::class.java)
+        intent.putExtra("title", stockItem.ticker)
         startActivity(intent)
     }
 

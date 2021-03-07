@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.stocktracker.api.NetworkClient
 import com.example.stocktracker.api.RetrofitServices
+import com.example.stocktracker.entity.News
 import com.example.stocktracker.entity.Stock
 import io.paperdb.Paper
 import retrofit2.Call
@@ -49,7 +50,7 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
     fun updateItem(stockItem: Stock) {
         val favouriteList = getFavouriteList()
 
-        val targetItem = favouriteList.singleOrNull { it.symbol == stockItem.symbol }
+        val targetItem = favouriteList.singleOrNull { it.ticker == stockItem.ticker }
         if (targetItem == null) {
             favouriteList.add(stockItem)
         } else {

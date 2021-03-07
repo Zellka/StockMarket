@@ -20,8 +20,6 @@ class StockAdapter(private var listener: ItemClickListener) :
     private var stocks: MutableList<Stock> = ArrayList()
     private var stockFilterList: MutableList<Stock> = ArrayList()
 
-    private val SIZE_LIMIT: Int = 20
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -43,13 +41,7 @@ class StockAdapter(private var listener: ItemClickListener) :
         }
     }
 
-    override fun getItemCount(): Int {
-        return if (stockFilterList.size > SIZE_LIMIT) {
-            SIZE_LIMIT
-        } else {
-            stockFilterList.size
-        }
-    }
+    override fun getItemCount(): Int = stockFilterList.size
 
     class StockViewHolder(private val binding: StockItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -79,7 +71,7 @@ class StockAdapter(private var listener: ItemClickListener) :
                 else {
                     val resultList: MutableList<Stock> = ArrayList()
                     for (row in stocks) {
-                        if (row.symbol.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT))) {
+                        if (row.ticker.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT))) {
                             resultList.add(row)
                         }
                     }
