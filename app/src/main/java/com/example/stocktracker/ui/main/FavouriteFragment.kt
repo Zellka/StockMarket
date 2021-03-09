@@ -14,12 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocktracker.R
 import com.example.stocktracker.adapter.StockAdapter
-import com.example.stocktracker.common.ItemClickListener
+import com.example.stocktracker.common.StockClickListener
 import com.example.stocktracker.entity.Stock
 import com.example.stocktracker.ui.detail.CardActivity
 import com.example.stocktracker.viewmodel.StockViewModel
 
-class FavouriteFragment : Fragment(), ItemClickListener {
+class FavouriteFragment : Fragment(), StockClickListener {
 
     private lateinit var stockViewModel: StockViewModel
 
@@ -70,6 +70,7 @@ class FavouriteFragment : Fragment(), ItemClickListener {
     override fun showDetailsStock(stockItem: Stock) {
         val intent = Intent(this.context, CardActivity::class.java)
         intent.putExtra("title", stockItem.ticker)
+        intent.putExtra("subtitle", stockItem.companyName)
         startActivity(intent)
     }
 }

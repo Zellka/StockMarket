@@ -16,11 +16,13 @@ class CardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_card)
         val arguments = intent.extras
         val title = arguments!!["title"].toString()
+        val subtitle = arguments!!["subtitle"].toString()
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.title = title
+        supportActionBar!!.subtitle = subtitle
 
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, title)

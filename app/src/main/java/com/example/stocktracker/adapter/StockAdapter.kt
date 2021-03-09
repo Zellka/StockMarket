@@ -8,13 +8,13 @@ import android.widget.Filterable
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocktracker.R
-import com.example.stocktracker.common.ItemClickListener
+import com.example.stocktracker.common.StockClickListener
 import com.example.stocktracker.databinding.StockItemBinding
 import com.example.stocktracker.entity.Stock
 import java.util.*
 import kotlin.collections.ArrayList
 
-class StockAdapter(private var listener: ItemClickListener) :
+class StockAdapter(private var listener: StockClickListener) :
     RecyclerView.Adapter<StockAdapter.StockViewHolder>(), Filterable {
 
     private var stocks: MutableList<Stock> = ArrayList()
@@ -46,7 +46,7 @@ class StockAdapter(private var listener: ItemClickListener) :
     class StockViewHolder(private val binding: StockItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("CheckResult")
-        fun bind(data: Stock, listener: ItemClickListener, position: Int) {
+        fun bind(data: Stock, listener: StockClickListener, position: Int) {
             binding.stock = data
             binding.btnAddToFavourite.setOnClickListener {
                 listener.changeFavouriteList(data)

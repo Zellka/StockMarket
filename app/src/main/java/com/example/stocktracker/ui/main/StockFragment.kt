@@ -1,10 +1,13 @@
 package com.example.stocktracker.ui.main
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -13,12 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocktracker.R
 import com.example.stocktracker.adapter.StockAdapter
-import com.example.stocktracker.common.ItemClickListener
+import com.example.stocktracker.common.StockClickListener
 import com.example.stocktracker.entity.Stock
 import com.example.stocktracker.ui.detail.CardActivity
 import com.example.stocktracker.viewmodel.StockViewModel
 
-class StockFragment : Fragment(), ItemClickListener {
+class StockFragment : Fragment(), StockClickListener {
 
     private lateinit var stockViewModel: StockViewModel
 
@@ -46,22 +49,45 @@ class StockFragment : Fragment(), ItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        stockViewModel.getAllStockList()
-
         progressBar = view.findViewById(R.id.progress_bar)
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         adapter = StockAdapter(this)
         recyclerView.adapter = adapter
 
-        progressBar.visibility = View.VISIBLE
-        stockViewModel.stocksMutableLiveData.observe(
-            viewLifecycleOwner,
-            { postModels ->
-                adapter.setList(postModels)
-                progressBar.visibility = View.INVISIBLE
-            },
-        )
+        if (isNetworkConnected()) {
+            stockViewModel.setNetworkConnected(true)
+            stockViewModel.getAllStockList()
+            progressBar.visibility = View.VISIBLE
+            stockViewModel.stocksMutableLiveData.observe(
+                viewLifecycleOwner,
+                { postModels ->
+                    adapter.setList(postModels)
+                    progressBar.visibility = View.INVISIBLE
+                }
+            )
+        } else {
+            this.context?.let {
+                showAlertDialog(
+                    it, "No internet connection",
+                    "No internet connection"
+                )
+            };
+        }
+    }
+
+    private fun showAlertDialog(context: Context, title: String, message: String) {
+        val alertDialog: AlertDialog = AlertDialog.Builder(context).create();
+        alertDialog.setTitle(title)
+        alertDialog.setMessage(message)
+        alertDialog.show()
+    }
+
+    private fun isNetworkConnected(): Boolean {
+        val cm = this.context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = cm.activeNetworkInfo
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting
     }
 
     override fun changeFavouriteList(stockItem: Stock) {
@@ -72,6 +98,7 @@ class StockFragment : Fragment(), ItemClickListener {
     override fun showDetailsStock(stockItem: Stock) {
         val intent = Intent(this.context, CardActivity::class.java)
         intent.putExtra("title", stockItem.ticker)
+        intent.putExtra("subtitle", stockItem.companyName)
         startActivity(intent)
     }
 

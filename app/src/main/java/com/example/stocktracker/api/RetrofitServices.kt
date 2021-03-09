@@ -8,7 +8,6 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-
 interface RetrofitServices {
     @GET("actives?apikey=2803cae49d539d5020e02b9de8803106")
     fun getStocks(): Call<MutableList<Stock>>

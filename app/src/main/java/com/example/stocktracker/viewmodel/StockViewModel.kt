@@ -1,8 +1,7 @@
 package com.example.stocktracker.viewmodel
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.stocktracker.api.NetworkClient
@@ -18,11 +17,12 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
     private val BASE_URL = "https://financialmodelingprep.com/api/v3/"
     private val context = getApplication<Application>().applicationContext
     private val service: RetrofitServices
-        get() = NetworkClient.getClient(BASE_URL, context, isNetworkConnected(context))
+        get() = NetworkClient.getClient(BASE_URL, context, isInternet)
             .create(RetrofitServices::class.java)
 
-    var stocksMutableLiveData: MutableLiveData<MutableList<Stock>> = MutableLiveData<MutableList<Stock>>()
-    var stocks = MutableLiveData<String>()
+    var stocksMutableLiveData: MutableLiveData<MutableList<Stock>> =
+        MutableLiveData<MutableList<Stock>>()
+    private var isInternet = false
 
     fun getAllStockList() {
         service.getStocks().enqueue(object : Callback<MutableList<Stock>> {
@@ -31,20 +31,21 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
                 call: Call<MutableList<Stock>>,
                 response: Response<MutableList<Stock>>
             ) {
-                stocksMutableLiveData.value = response.body()
+                if (response.body() != null) {
+                    stocksMutableLiveData.value = response.body()
+                } else {
+                    Toast.makeText(context, "server error", Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onFailure(call: Call<MutableList<Stock>>, t: Throwable) {
-                stocks.value = "err"
+                Toast.makeText(context, "server error", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun isNetworkConnected(context: Context): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork = cm.activeNetworkInfo
-        return activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting
+    fun setNetworkConnected(connect: Boolean) {
+        isInternet = connect
     }
 
     fun updateItem(stockItem: Stock) {
