@@ -16,9 +16,10 @@ import retrofit2.Response
 
 class NewsViewModel (application: Application) : AndroidViewModel(application) {
 
+    private val BASE_URL = "https://financialmodelingprep.com/api/v3/"
     private val context = getApplication<Application>().applicationContext
     private val service: RetrofitServices
-        get() = NetworkClient.getClient(context, isNetworkConnected(context))
+        get() = NetworkClient.getClient(BASE_URL,context, isNetworkConnected(context))
             .create(RetrofitServices::class.java)
 
     var newsMutableLiveData: MutableLiveData<MutableList<News>> = MutableLiveData<MutableList<News>>()

@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.stocktracker.api.NetworkClient
 import com.example.stocktracker.api.RetrofitServices
-import com.example.stocktracker.entity.News
 import com.example.stocktracker.entity.Stock
 import io.paperdb.Paper
 import retrofit2.Call
@@ -16,9 +15,10 @@ import retrofit2.Response
 
 class StockViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val BASE_URL = "https://financialmodelingprep.com/api/v3/"
     private val context = getApplication<Application>().applicationContext
     private val service: RetrofitServices
-        get() = NetworkClient.getClient(context, isNetworkConnected(context))
+        get() = NetworkClient.getClient(BASE_URL, context, isNetworkConnected(context))
             .create(RetrofitServices::class.java)
 
     var stocksMutableLiveData: MutableLiveData<MutableList<Stock>> = MutableLiveData<MutableList<Stock>>()

@@ -6,11 +6,11 @@ import android.content.Context
 import okhttp3.*
 
 object NetworkClient {
-    private const val BASE_URL = "https://financialmodelingprep.com/api/v3/"
+    //private const val BASE_URL = "https://financialmodelingprep.com/api/v3/"
     private const val cacheSize = (10 * 1024 * 1024).toLong()
     private var retrofit: Retrofit? = null
 
-    fun getClient(context: Context, hasInternet: Boolean): Retrofit {
+    fun getClient(baseUrl:String, context: Context, hasInternet: Boolean): Retrofit {
         if (retrofit == null) {
             val cache = Cache(context.cacheDir, cacheSize)
             val okHttpClient = OkHttpClient.Builder()
@@ -28,7 +28,7 @@ object NetworkClient {
                 }
 
             retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient.build())
                 .build()
