@@ -11,7 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocktracker.R
@@ -30,7 +30,7 @@ class StockFragment : Fragment(), StockClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        stockViewModel = ViewModelProviders.of(this).get(StockViewModel::class.java)
+        stockViewModel = ViewModelProvider(this).get(StockViewModel::class.java)
         setHasOptionsMenu(true)
     }
 

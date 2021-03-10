@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.stocktracker.R
 import com.example.stocktracker.viewmodel.ChartViewModel
 import com.github.mikephil.charting.charts.LineChart
@@ -30,7 +30,7 @@ class ChartFragment : Fragment() {
         arguments?.let {
             title = it.getString("title")
         }
-        chartViewModel = ViewModelProviders.of(this).get(ChartViewModel::class.java)
+        chartViewModel = ViewModelProvider(this).get(ChartViewModel::class.java)
     }
 
     override fun onCreateView(
