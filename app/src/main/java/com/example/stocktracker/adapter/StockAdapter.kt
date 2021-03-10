@@ -70,7 +70,12 @@ class StockAdapter(private var listener: StockClickListener) :
                     val resultList: MutableList<Stock> = ArrayList()
                     for (row in stocks) {
                         if (row.ticker.toLowerCase(Locale.ROOT)
-                                .contains(charSearch.toLowerCase(Locale.ROOT)) //добавить поиск по названию компании row.companyName.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT)
+                                .contains(charSearch.toLowerCase(Locale.ROOT))
+                        ) {
+                            resultList.add(row)
+                        }
+                        else if (row.companyName.toLowerCase(Locale.ROOT)
+                                .contains(charSearch.toLowerCase(Locale.ROOT))
                         ) {
                             resultList.add(row)
                         }
