@@ -1,11 +1,11 @@
 package com.example.stocktracker.viewmodel
 
 import android.app.Application
-import android.content.Context
 import android.graphics.Color
-import android.net.ConnectivityManager
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.stocktracker.api.NetworkClient
 import com.example.stocktracker.api.RetrofitServices
 import com.example.stocktracker.entity.HistoricalDataResponse
@@ -19,24 +19,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.ArrayList
 
-class ChartViewModel(application: Application) : AndroidViewModel(application) {
-
+class ChartViewModel(application: Application, private val ticker: String) : AndroidViewModel(application) {
     private val BASE_URL = "https://wft-geo-db.p.rapidapi.com/"
     private val context = getApplication<Application>().applicationContext
-    private lateinit var title: String
-    private var isInternet = false
-
-    fun setNetworkConnected(connect: Boolean) {
-        isInternet = connect
-    }
-
-    fun setTitle(symbol: String) {
-        title = symbol
-    }
-
     private val service: RetrofitServices
         get() {
-            return NetworkClient.getClient(BASE_URL, context, isNetworkConnected(context))
+            return NetworkClient.getClient(BASE_URL, context)
                 .create(RetrofitServices::class.java)
         }
 
@@ -53,7 +41,7 @@ class ChartViewModel(application: Application) : AndroidViewModel(application) {
             "history",
             startTime.toString(),
             endTime.toString(),
-            title
+            ticker
         ).enqueue(object : Callback<HistoricalDataResponse> {
             override fun onResponse(
                 call: Call<HistoricalDataResponse>,
@@ -69,7 +57,7 @@ class ChartViewModel(application: Application) : AndroidViewModel(application) {
                         }
                     }
                     pricesHigh.sortBy { it.x }
-                    setLineChartData(pricesHigh, title, lineChart)
+                    setLineChartData(pricesHigh, ticker, lineChart)
                 } else {
                     Toast.makeText(context, "server error", Toast.LENGTH_SHORT).show()
                 }
@@ -101,11 +89,14 @@ class ChartViewModel(application: Application) : AndroidViewModel(application) {
         lineChart.data = lineData
         lineChart.invalidate()
     }
+}
 
-    private fun isNetworkConnected(context: Context): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork = cm.activeNetworkInfo
-        return activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting
+@Suppress("UNCHECKED_CAST")
+class ChartFactory(private val app: Application, private val ticker: String) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ChartViewModel::class.java)) {
+            return ChartViewModel(app, ticker) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

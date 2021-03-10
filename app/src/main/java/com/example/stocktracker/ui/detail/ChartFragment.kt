@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.stocktracker.R
+import com.example.stocktracker.viewmodel.ChartFactory
 import com.example.stocktracker.viewmodel.ChartViewModel
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
@@ -20,17 +21,14 @@ import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class ChartFragment : Fragment() {
-    private var title: String? = null
     private lateinit var chartViewModel: ChartViewModel
 
     private lateinit var lineChart: LineChart
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            title = it.getString("title")
-        }
-        chartViewModel = ViewModelProvider(this).get(ChartViewModel::class.java)
+        val title: String = arguments?.getString("title").toString()
+        chartViewModel = ViewModelProvider(this, ChartFactory(activity!!.application, title)).get(ChartViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -42,12 +40,10 @@ class ChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        title?.let { chartViewModel.setTitle(it) }
 
         lineChart = view.findViewById(R.id.line_chart)
         if (isNetworkConnected()) {
             configureLineChart()
-            chartViewModel.setNetworkConnected(true)
             chartViewModel.getStockData("1m", lineChart)
             val btn1d: Button = view.findViewById(R.id.period1d)
             val btn1m: Button = view.findViewById(R.id.period1m)

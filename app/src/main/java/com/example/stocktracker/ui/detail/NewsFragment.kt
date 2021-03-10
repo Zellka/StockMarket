@@ -12,17 +12,15 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocktracker.R
 import com.example.stocktracker.adapter.NewsAdapter
 import com.example.stocktracker.common.NewsClickListener
+import com.example.stocktracker.viewmodel.NewsFactory
 import com.example.stocktracker.viewmodel.NewsViewModel
 
 class NewsFragment : Fragment(), NewsClickListener {
-
-    private var title: String? = null
     private lateinit var newsViewModel: NewsViewModel
 
     private lateinit var recyclerView: RecyclerView
@@ -31,10 +29,8 @@ class NewsFragment : Fragment(), NewsClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            title = it.getString("title")
-        }
-        newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
+        val title: String = arguments?.getString("title").toString()
+        newsViewModel = ViewModelProvider(this, NewsFactory(activity!!.application, title)).get(NewsViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -46,15 +42,12 @@ class NewsFragment : Fragment(), NewsClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        title?.let { newsViewModel.setSymbol(it) }
-
         progressBar = view.findViewById(R.id.progress_news)
         recyclerView = view.findViewById(R.id.recycler_news)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         adapter = NewsAdapter(this)
         recyclerView.adapter = adapter
         if (isNetworkConnected()) {
-            newsViewModel.setNetworkConnected(true)
             newsViewModel.getAllNews()
             progressBar.visibility = View.VISIBLE
             newsViewModel.newsMutableLiveData.observe(
