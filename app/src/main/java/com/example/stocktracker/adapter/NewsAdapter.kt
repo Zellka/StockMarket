@@ -12,7 +12,6 @@ import kotlin.collections.ArrayList
 
 class NewsAdapter(private var listener: NewsClickListener) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
-
     private var newsList: MutableList<News> = ArrayList()
 
     override fun onCreateViewHolder(

@@ -16,12 +16,12 @@ interface RetrofitServices {
     fun getNews(@Query("tickers") tickers: String): Call<MutableList<News>>
 
     @Headers("x-rapidapi-host: apidojo-yahoo-finance-v1.p.rapidapi.com", "x-rapidapi-key: b2d3a5a657mshc9cf12f74c5bca9p14b303jsn88015e4f4f7a")
-    @GET("/stock/v2/get-historical-data")
+    @GET("stock/v2/get-historical-data")
     fun getHistoricalData(
-        @Query("frequency") frequency: String?,
-        @Query("filter") filter: String?,
-        @Query("period1") period1: String?,
-        @Query("period2") period2: String?,
+        @Query("frequency") frequency: String,
+        @Query("filter") filter: String,
+        @Query("period1") period1: String,
+        @Query("period2") period2: String,
         @Query("symbol") symbol: String?
     ): Call<HistoricalDataResponse>
 }

@@ -16,7 +16,6 @@ import kotlin.collections.ArrayList
 
 class StockAdapter(private var listener: StockClickListener) :
     RecyclerView.Adapter<StockAdapter.StockViewHolder>(), Filterable {
-
     private var stocks: MutableList<Stock> = ArrayList()
     private var stockFilterList: MutableList<Stock> = ArrayList()
 
@@ -67,11 +66,12 @@ class StockAdapter(private var listener: StockClickListener) :
                 val charSearch = constraint.toString()
                 if (charSearch.isEmpty()) {
                     stockFilterList = stocks
-                }
-                else {
+                } else {
                     val resultList: MutableList<Stock> = ArrayList()
                     for (row in stocks) {
-                        if (row.ticker.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT))) {
+                        if (row.ticker.toLowerCase(Locale.ROOT)
+                                .contains(charSearch.toLowerCase(Locale.ROOT)) //добавить поиск по названию компании row.companyName.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT)
+                        ) {
                             resultList.add(row)
                         }
                     }

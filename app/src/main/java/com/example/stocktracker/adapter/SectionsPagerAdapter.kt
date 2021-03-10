@@ -15,7 +15,6 @@ private val TAB_TITLES = arrayOf(
 
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, val title: String) :
     FragmentPagerAdapter(fm) {
-
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> ChartFragment.newInstance(title)
@@ -24,7 +23,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, va
         }
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return context.resources.getString(TAB_TITLES[position])
     }
 

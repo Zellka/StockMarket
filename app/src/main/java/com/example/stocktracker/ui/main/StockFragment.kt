@@ -22,7 +22,6 @@ import com.example.stocktracker.ui.detail.CardActivity
 import com.example.stocktracker.viewmodel.StockViewModel
 
 class StockFragment : Fragment(), StockClickListener {
-
     private lateinit var stockViewModel: StockViewModel
 
     private lateinit var recyclerView: RecyclerView
@@ -131,5 +130,4 @@ class StockFragment : Fragment(), StockClickListener {
         }
         return super.onOptionsItemSelected(item)
     }
-
 }
