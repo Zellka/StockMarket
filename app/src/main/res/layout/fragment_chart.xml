@@ -17,6 +17,12 @@
             android:text="1 Day" />
 
         <Button
+            android:id="@+id/period1w"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 Week" />
+
+        <Button
             android:id="@+id/period1m"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

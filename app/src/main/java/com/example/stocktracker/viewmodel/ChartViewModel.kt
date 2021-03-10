@@ -33,6 +33,7 @@ class ChartViewModel(application: Application, private val ticker: String) : And
         var startTime: Long = 0
         when (frequency) {
             "1d" -> startTime = endTime - 60 * 60 * 24
+            "1w" -> startTime = endTime - 60 * 60 * 24 * 7
             "1m" -> startTime = endTime - 60 * 60 * 24 * 30
             "1y" -> startTime = endTime - 60 * 60 * 24 * 356
         }

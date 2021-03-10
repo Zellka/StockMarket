@@ -46,10 +46,14 @@ class ChartFragment : Fragment() {
             configureLineChart()
             chartViewModel.getStockData("1m", lineChart)
             val btn1d: Button = view.findViewById(R.id.period1d)
+            val btn1w: Button = view.findViewById(R.id.period1w)
             val btn1m: Button = view.findViewById(R.id.period1m)
             val btn1y: Button = view.findViewById(R.id.period12m)
             btn1d.setOnClickListener {
                 chartViewModel.getStockData("1d", lineChart)
+            }
+            btn1w.setOnClickListener {
+                chartViewModel.getStockData("1w", lineChart)
             }
             btn1m.setOnClickListener {
                 chartViewModel.getStockData("1m", lineChart)
