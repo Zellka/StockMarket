@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.stocktracker.R
 import com.example.stocktracker.adapter.StockAdapter
 import com.example.stocktracker.common.StockClickListener
@@ -26,6 +27,7 @@ class FavouriteFragment : Fragment(), StockClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: StockAdapter
+    private lateinit var swipeRefresh: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +48,14 @@ class FavouriteFragment : Fragment(), StockClickListener {
         stockViewModel.getAllStockList()
 
         recyclerView = view.findViewById(R.id.recycler_view)
+        swipeRefresh = view.findViewById(R.id.swipe_refresh)
         adapter = StockAdapter(this)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         adapter.setList(stockViewModel.getFavouriteList())
+        swipeRefresh.setOnRefreshListener {
+            adapter.setList(stockViewModel.getFavouriteList())
+            swipeRefresh.isRefreshing = false
+        }
         recyclerView.adapter = adapter
     }
 

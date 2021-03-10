@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.stocktracker.R
 import com.example.stocktracker.adapter.StockAdapter
 import com.example.stocktracker.common.StockClickListener
@@ -28,6 +29,7 @@ class StockFragment : Fragment(), StockClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: StockAdapter
     private lateinit var progressBar: ProgressBar
+    private lateinit var swipeRefresh: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +53,19 @@ class StockFragment : Fragment(), StockClickListener {
         super.onViewCreated(view, savedInstanceState)
         progressBar = view.findViewById(R.id.progress_bar)
         recyclerView = view.findViewById(R.id.recycler_view)
+        swipeRefresh = view.findViewById(R.id.swipe_refresh)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         adapter = StockAdapter(this)
         recyclerView.adapter = adapter
+        getDataList()
+        swipeRefresh.setOnRefreshListener {
+            progressBar.visibility = View.INVISIBLE
+            getDataList()
+            swipeRefresh.isRefreshing = false
+        }
+    }
 
+    private fun getDataList(){
         if (isNetworkConnected()) {
             stockViewModel.getAllStockList()
             progressBar.visibility = View.VISIBLE
