@@ -9,19 +9,13 @@ object NetworkClient {
     private const val cacheSize = (10 * 1024 * 1024).toLong()
     private var retrofit: Retrofit? = null
 
-    fun getClient(baseUrl: String, context: Context, hasInternet: Boolean): Retrofit {
+    fun getClient(baseUrl: String, context: Context): Retrofit {
         val cache = Cache(context.cacheDir, cacheSize)
         val okHttpClient = OkHttpClient.Builder()
             .cache(cache)
             .addInterceptor { chain ->
                 var request = chain.request()
-                request = if (hasInternet)
-                    request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
-                else
-                    request.newBuilder().header(
-                        "Cache-Control",
-                        "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7
-                    ).build()
+                request = request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
                 chain.proceed(request)
             }
 
