@@ -55,7 +55,6 @@ class StockFragment : Fragment(), StockClickListener {
         recyclerView.adapter = adapter
 
         if (isNetworkConnected()) {
-            stockViewModel.setNetworkConnected(true)
             stockViewModel.getAllStockList()
             progressBar.visibility = View.VISIBLE
             stockViewModel.stocksMutableLiveData.observe(

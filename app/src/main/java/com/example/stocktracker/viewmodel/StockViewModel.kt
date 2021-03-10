@@ -17,12 +17,11 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
     private val BASE_URL = "https://financialmodelingprep.com/api/v3/"
     private val context = getApplication<Application>().applicationContext
     private val service: RetrofitServices
-        get() = NetworkClient.getClient(BASE_URL, context, isInternet)
+        get() = NetworkClient.getClient(BASE_URL, context)
             .create(RetrofitServices::class.java)
 
     var stocksMutableLiveData: MutableLiveData<MutableList<Stock>> =
         MutableLiveData<MutableList<Stock>>()
-    private var isInternet = false
 
     fun getAllStockList() {
         service.getStocks().enqueue(object : Callback<MutableList<Stock>> {
@@ -42,10 +41,6 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
                 Toast.makeText(context, "server error", Toast.LENGTH_SHORT).show()
             }
         })
-    }
-
-    fun setNetworkConnected(connect: Boolean) {
-        isInternet = connect
     }
 
     fun updateItem(stockItem: Stock) {
