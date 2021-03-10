@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -95,8 +96,11 @@ class StockFragment : Fragment(), StockClickListener {
 
     override fun showDetailsStock(stockItem: Stock) {
         val intent = Intent(this.context, CardActivity::class.java)
-        intent.putExtra("title", stockItem.ticker)
-        intent.putExtra("subtitle", stockItem.companyName)
+        val bundle = bundleOf(
+            Pair("TICKER_STOCK", stockItem.ticker),
+            Pair("COMPANY_NAME_STOCK", stockItem.companyName)
+        )
+        intent.putExtras(bundle)
         startActivity(intent)
     }
 
