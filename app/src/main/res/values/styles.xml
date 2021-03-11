@@ -1,7 +1,6 @@
 <resources>
-    <!-- Base application theme. -->
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -10,10 +9,35 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="searchViewStyle">@style/SearchViewMy</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="SearchViewMy" parent="Widget.AppCompat.Light.SearchView">
+        <item name="searchHintIcon">@null</item>
+    </style>
+
+    <style name="CustomToolBarStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="background">@color/colorPrimary</item>
+        <item name="iconTint">@color/colorAccent</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="subtitleTextColor">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+
+    </style>
+
+    <style name="CustomTabLayoutStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="background">@color/colorPrimary</item>
+        <item name="tabTextColor">@color/colorNoSelect</item>
+        <item name="tabSelectedTextColor">@color/colorAccent</item>
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">@dimen/tabLayout_text_size</item>
+
+    </style>
 
 </resources>
