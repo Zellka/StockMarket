@@ -4,13 +4,15 @@
 
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_baseline_search_24"
-        android:title="Search"
+        android:icon="@drawable/ic_loupe"
+        android:title="@string/title_search"
+        android:iconTint="@color/colorAccent"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
     <item
         android:id="@+id/action_favourite"
-        android:icon="@drawable/ic_baseline_star_24"
-        android:title="Favourite"
+        android:icon="@drawable/ic_star"
+        android:title="@string/title_favourite"
+        android:iconTint="@color/colorAccent"
         app:showAsAction="always" />
 </menu>
