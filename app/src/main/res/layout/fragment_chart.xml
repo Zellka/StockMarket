@@ -34,47 +34,7 @@
             android:layout_height="wrap_content"
             android:text="1 Year" />
 
-
-
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-  <!--  <RadioGroup
-        android:id="@+id/period_radiogroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Period"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/period1d"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1 Day" />
-
-        <RadioButton
-            android:id="@+id/period1m"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Month" />
-
-        <RadioButton
-            android:id="@+id/period12m"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Year" />
-    </RadioGroup>
-
-
-    <Button
-        android:id="@+id/get_prices"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Get Prices" />-->
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/line_chart"
