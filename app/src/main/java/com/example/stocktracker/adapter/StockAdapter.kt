@@ -1,6 +1,7 @@
 package com.example.stocktracker.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -11,10 +12,11 @@ import com.example.stocktracker.R
 import com.example.stocktracker.common.StockClickListener
 import com.example.stocktracker.databinding.StockItemBinding
 import com.example.stocktracker.entity.Stock
+import kotlinx.android.synthetic.main.stock_item.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class StockAdapter(private var listener: StockClickListener) :
+class StockAdapter(private var listener: StockClickListener, var isFavourite: Boolean) :
     RecyclerView.Adapter<StockAdapter.StockViewHolder>(), Filterable {
     private var stocks: MutableList<Stock> = ArrayList()
     private var stockFilterList: MutableList<Stock> = ArrayList()
@@ -32,11 +34,31 @@ class StockAdapter(private var listener: StockClickListener) :
         return StockViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: StockAdapter.StockViewHolder, position: Int) {
+    private var colors = arrayOf("#F0F4F7", "#FFFFFF")
+
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
         val item = stockFilterList[position]
-        holder.bind(item, listener, position)
+        holder.bind(item, listener, isFavourite)
+        holder.itemView.setBackgroundColor(Color.parseColor(colors[position % 2]))
+        holder.itemView.price_current.text = holder.itemView.price_current.text.toString() + '$'
         holder.itemView.setOnClickListener {
             listener.showDetailsStock(item)
+        }
+        if (holder.itemView.change_percentage.text.contains('+')) {
+            holder.itemView.change_percentage.setTextColor(Color.parseColor("#24B25D"))
+            holder.itemView.price_change.setTextColor(Color.parseColor("#24B25D"))
+            holder.itemView.price_change.text =
+                '+' + holder.itemView.price_change.text.toString() + '$'
+        } else {
+            holder.itemView.change_percentage.setTextColor(Color.parseColor("#B22424"))
+            holder.itemView.price_change.setTextColor(Color.parseColor("#B22424"))
+            holder.itemView.price_change.text = holder.itemView.price_change.text.toString() + '$'
+        }
+        if (isFavourite) {
+            holder.itemView.btn_add_to_favourite.setImageResource(R.drawable.ic_star_select)
+        } else {
+            holder.itemView.btn_add_to_favourite.setImageResource(R.drawable.ic_star_no_select)
         }
     }
 
@@ -45,10 +67,18 @@ class StockAdapter(private var listener: StockClickListener) :
     class StockViewHolder(private val binding: StockItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("CheckResult")
-        fun bind(data: Stock, listener: StockClickListener, position: Int) {
+        fun bind(data: Stock, listener: StockClickListener, isFavourite: Boolean) {
             binding.stock = data
+            var flag = !isFavourite
             binding.btnAddToFavourite.setOnClickListener {
                 listener.changeFavouriteList(data)
+                if (flag) {
+                    binding.btnAddToFavourite.setImageResource(R.drawable.ic_star_select)
+                    flag = !flag
+                } else {
+                    binding.btnAddToFavourite.setImageResource(R.drawable.ic_star_no_select)
+                    flag = !flag
+                }
             }
             binding.executePendingBindings()
         }
@@ -73,8 +103,7 @@ class StockAdapter(private var listener: StockClickListener) :
                                 .contains(charSearch.toLowerCase(Locale.ROOT))
                         ) {
                             resultList.add(row)
-                        }
-                        else if (row.companyName.toLowerCase(Locale.ROOT)
+                        } else if (row.companyName.toLowerCase(Locale.ROOT)
                                 .contains(charSearch.toLowerCase(Locale.ROOT))
                         ) {
                             resultList.add(row)

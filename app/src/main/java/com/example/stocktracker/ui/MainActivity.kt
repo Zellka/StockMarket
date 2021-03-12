@@ -2,6 +2,7 @@ package com.example.stocktracker.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.example.stocktracker.R
 import com.example.stocktracker.ui.main.StockFragment
 import io.paperdb.Paper
@@ -12,6 +13,9 @@ class MainActivity : AppCompatActivity(){
         Paper.init(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar_main)
+        toolbar.title = "Stock"
+        setSupportActionBar(toolbar)
 
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if(currentFragment==null){

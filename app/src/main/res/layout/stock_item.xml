@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,67 +12,82 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/item_height"
+        android:layout_margin="@dimen/item_margin"
         android:orientation="vertical"
-        app:cardCornerRadius="4dp">
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_stock"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:src="@mipmap/ic_launcher" />
+            android:padding="@dimen/padding_layout">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/name_ticker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/img_stock"
-                android:text="@{stock.ticker}" />
+                android:layout_alignParentStart="true"
+                android:text="@{stock.ticker}"
+                android:theme="@style/TitleTextStyle" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_add_to_favourite"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_toRightOf="@+id/name_ticker"
-                android:text="*" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/name_ticker"
+                android:background="@null"
+                android:paddingStart="@dimen/padding_item"
+                android:paddingTop="@dimen/padding_item"
+                android:src="@drawable/ic_star_no_select"
+                tools:ignore="RtlSymmetry" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/name_company"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name_ticker"
-                android:layout_toRightOf="@+id/img_stock"
-                android:text="@{stock.companyName}" />
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/price_change"
+                android:ellipsize="end"
+                android:paddingTop="@dimen/padding_item"
+                android:paddingEnd="@dimen/padding_item"
+                android:singleLine="true"
+                android:text="@{stock.companyName}"
+                android:theme="@style/SubTitleTextStyle"
+                tools:ignore="RtlSymmetry" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/price_current"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:text="@{stock.price}" />
+                android:layout_alignParentEnd="true"
+                android:text="@{stock.price}"
+                android:theme="@style/TitleTextStyle" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/price_change"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/price_current"
-                android:text="@{stock.changes}" />
+                android:layout_toStartOf="@+id/change_percentage"
+                android:layout_weight="0"
+                android:paddingTop="@dimen/padding_item"
+                android:paddingEnd="@dimen/padding_item"
+                android:text="@{stock.changes}"
+                android:theme="@style/SubTitleTextStyle"
+                tools:ignore="RtlSymmetry" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/change_percentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/price_current"
-                android:layout_alignParentRight="true"
-                android:text="@{stock.changesPercentage}" />
+                android:layout_alignParentEnd="true"
+                android:paddingTop="@dimen/padding_item"
+                android:text="@{stock.changesPercentage}"
+                android:theme="@style/SubTitleTextStyle" />
 
         </RelativeLayout>
 

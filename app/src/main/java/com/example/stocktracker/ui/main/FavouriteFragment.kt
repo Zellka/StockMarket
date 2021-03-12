@@ -34,6 +34,7 @@ class FavouriteFragment : Fragment(), StockClickListener {
         setHasOptionsMenu(true)
         stockViewModel = ViewModelProvider(this).get(StockViewModel::class.java)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as? AppCompatActivity)?.supportActionBar?.title = "Favourite"
     }
 
     override fun onCreateView(
@@ -49,7 +50,7 @@ class FavouriteFragment : Fragment(), StockClickListener {
 
         recyclerView = view.findViewById(R.id.recycler_view)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
-        adapter = StockAdapter(this)
+        adapter = StockAdapter(this, true)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         adapter.setList(stockViewModel.getFavouriteList())
         swipeRefresh.setOnRefreshListener {
@@ -64,6 +65,7 @@ class FavouriteFragment : Fragment(), StockClickListener {
             android.R.id.home -> {
                 activity?.supportFragmentManager?.popBackStack()
                 (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                (activity as? AppCompatActivity)?.supportActionBar?.title = "Stock"
                 true
             }
             else -> super.onOptionsItemSelected(item)

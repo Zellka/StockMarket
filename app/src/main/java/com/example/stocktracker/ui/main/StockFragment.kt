@@ -40,6 +40,7 @@ class StockFragment : Fragment(), StockClickListener {
     override fun onResume() {
         super.onResume()
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as? AppCompatActivity)?.supportActionBar?.title = "Stock"
     }
 
     override fun onCreateView(
@@ -55,7 +56,7 @@ class StockFragment : Fragment(), StockClickListener {
         recyclerView = view.findViewById(R.id.recycler_view)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        adapter = StockAdapter(this)
+        adapter = StockAdapter(this,false)
         recyclerView.adapter = adapter
         getDataList()
         swipeRefresh.setOnRefreshListener {
@@ -125,6 +126,7 @@ class StockFragment : Fragment(), StockClickListener {
 
         if (id == R.id.action_search) {
             val searchView = item.actionView as SearchView
+            searchView.queryHint = "find company or ticker"
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     return false
