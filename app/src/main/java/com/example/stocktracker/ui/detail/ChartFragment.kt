@@ -1,12 +1,15 @@
 package com.example.stocktracker.ui.detail
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,9 +17,14 @@ import com.example.stocktracker.R
 import com.example.stocktracker.viewmodel.ChartFactory
 import com.example.stocktracker.viewmodel.ChartViewModel
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.Description
-import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.components.MarkerView
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.utils.MPPointF
+import kotlinx.android.synthetic.main.marker.view.*
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -28,7 +36,9 @@ class ChartFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val title: String = arguments?.getString("title").toString()
-        chartViewModel = ViewModelProvider(this, ChartFactory(activity!!.application, title)).get(ChartViewModel::class.java)
+        chartViewModel = ViewModelProvider(this, ChartFactory(activity!!.application, title)).get(
+            ChartViewModel::class.java
+        )
     }
 
     override fun onCreateView(
@@ -42,6 +52,7 @@ class ChartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lineChart = view.findViewById(R.id.line_chart)
+
         if (isNetworkConnected()) {
             configureLineChart()
             chartViewModel.getStockData("1m", lineChart)
@@ -87,18 +98,16 @@ class ChartFragment : Fragment() {
     }
 
     private fun configureLineChart() {
-        val desc = Description()
-        desc.text = "Stock Price History"
-        desc.textSize = 28.0F
-        lineChart.description = desc
-        val xAxis = lineChart.xAxis
-        xAxis.valueFormatter = object : ValueFormatter() {
-            private val mFormat: SimpleDateFormat = SimpleDateFormat("dd MMM", Locale.ENGLISH)
-            override fun getFormattedValue(value: Float): String {
-                val millis = value.toLong() * 1000L
-                return mFormat.format(Date(millis))
-            }
-        }
+        lineChart.setNoDataText(null)
+        lineChart.description = null
+        val marker = Marker(this.requireContext())
+        marker.chartView = lineChart
+        lineChart.marker = marker
+        lineChart.animateY(2000)
+        lineChart.xAxis.isEnabled = false
+        lineChart.axisLeft.isEnabled = false
+        lineChart.axisRight.isEnabled = false
+        lineChart.invalidate()
     }
 
     companion object {
@@ -109,5 +118,27 @@ class ChartFragment : Fragment() {
                     putString("title", title)
                 }
             }
+    }
+}
+
+class Marker(context: Context) : MarkerView(context, R.layout.marker) {
+    @SuppressLint("SetTextI18n")
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun refreshContent(entry: Entry, highlight: Highlight) {
+        super.refreshContent(entry, highlight)
+
+        val format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        val timestamp = entry.x.toLong()
+        val timestampAsDateString = DateTimeFormatter.ISO_INSTANT
+            .format(java.time.Instant.ofEpochSecond(timestamp))
+
+        val date = LocalDate.parse(timestampAsDateString, format)
+
+        valueView.text = entry.y.toString() + '$'
+        dateView.text = date. dayOfMonth.toString() + ' ' + date.monthValue.toString()
+    }
+
+    override fun getOffset(): MPPointF {
+        return MPPointF((-(width / 2)).toFloat(), (-height).toFloat())
     }
 }

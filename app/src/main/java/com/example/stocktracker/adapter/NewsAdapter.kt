@@ -11,6 +11,10 @@ import com.example.stocktracker.R
 import com.example.stocktracker.common.NewsClickListener
 import com.example.stocktracker.databinding.NewsItemBinding
 import com.example.stocktracker.entity.News
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 import kotlin.collections.ArrayList
 
 class NewsAdapter(private var listener: NewsClickListener) :
@@ -46,6 +50,7 @@ class NewsAdapter(private var listener: NewsClickListener) :
 
     class NewsViewHolder(private val binding: NewsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(data: News) {
             binding.news = data
             binding.executePendingBindings()

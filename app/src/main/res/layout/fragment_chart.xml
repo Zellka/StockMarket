@@ -6,39 +6,93 @@
     android:orientation="vertical"
     tools:context=".ui.detail.ChartFragment">
 
+
+    <TextView
+        android:id="@+id/stock_price_current"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/stock_price_changes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/stock_price_percentage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/line_chart"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:weightSum="4"
         android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/period1d"
+            android:background="@drawable/button_no_pressed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1 Day" />
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="D" />
 
         <Button
             android:id="@+id/period1w"
+            android:background="@drawable/button_no_pressed"
+            android:fontFamily="@font/montserrat_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1 Week" />
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="W" />
 
         <Button
             android:id="@+id/period1m"
+            android:background="@drawable/button_no_pressed"
+            android:fontFamily="@font/montserrat_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1 Month" />
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="M" />
 
         <Button
             android:id="@+id/period12m"
+            android:background="@drawable/button_no_pressed"
+            android:fontFamily="@font/montserrat_medium"
             android:layout_width="match_parent"
+            android:layout_margin="10dp"
             android:layout_height="wrap_content"
-            android:text="1 Year" />
+            android:layout_weight="1"
+            android:text="Y" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/line_chart"
+    <Button
+        android:id="@+id/btn_buy"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/montserrat_medium"
+        android:background="@drawable/button_pressed"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="wrap_content"
+        android:text="Buy now" />
+
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

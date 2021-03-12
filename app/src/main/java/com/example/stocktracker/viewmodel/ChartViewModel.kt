@@ -1,11 +1,14 @@
 package com.example.stocktracker.viewmodel
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.graphics.Color
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.stocktracker.R
 import com.example.stocktracker.api.NetworkClient
 import com.example.stocktracker.api.RetrofitServices
 import com.example.stocktracker.entity.HistoricalDataResponse
@@ -17,9 +20,12 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
+import java.util.*
 
-class ChartViewModel(application: Application, private val ticker: String) : AndroidViewModel(application) {
+
+class ChartViewModel(application: Application, private val ticker: String) : AndroidViewModel(
+    application
+) {
     private val BASE_URL = "https://wft-geo-db.p.rapidapi.com/"
     private val context = getApplication<Application>().applicationContext
     private val service: RetrofitServices
@@ -71,20 +77,22 @@ class ChartViewModel(application: Application, private val ticker: String) : And
         })
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setLineChartData(
         pricesHigh: MutableList<Entry>, title: String, lineChart: LineChart
     ) {
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
-        val highLineDataSet = LineDataSet(
-            pricesHigh,
-            "$title Price"
-        )
-        highLineDataSet.setDrawCircles(true)
-        highLineDataSet.circleRadius = 4f
+        val highLineDataSet = LineDataSet(pricesHigh,null)
+        highLineDataSet.setDrawCircles(false)
+        highLineDataSet.setDrawCircleHole(false)
+        highLineDataSet.circleRadius = 15f
         highLineDataSet.setDrawValues(false)
         highLineDataSet.lineWidth = 3f
-        highLineDataSet.color = Color.GREEN
-        highLineDataSet.setCircleColor(Color.GREEN)
+        highLineDataSet.color = Color.BLACK
+        highLineDataSet.setCircleColor(Color.BLACK)
+        highLineDataSet.setDrawFilled(true)
+        val drawable = ContextCompat.getDrawable(context, R.drawable.chart_fill)
+        highLineDataSet.fillDrawable = drawable
         dataSets.add(highLineDataSet)
         val lineData = LineData(dataSets)
         lineChart.data = lineData

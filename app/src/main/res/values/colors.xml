@@ -6,4 +6,6 @@
     <color name="colorNoSelect">#BABABA</color>
     <color name="colorRed">#B22424</color>
     <color name="colorGreen">#24B25D</color>
+    <color name="colorBtnPressed">#000000</color>
+    <color name="colorBtnNoPressed">#F0F4F7</color>
 </resources>
