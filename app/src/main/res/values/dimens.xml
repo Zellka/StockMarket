@@ -9,7 +9,8 @@
     <dimen name="tabLayout_text_size">18dp</dimen>
     <dimen name="title_text_size">18dp</dimen>
     <dimen name="subtitle_text_size">12dp</dimen>
-    <dimen name="item_height">68dp</dimen>
+    <dimen name="item_stock_height">68dp</dimen>
+    <dimen name="item_news_height">100dp</dimen>
     <dimen name="item_margin">3dp</dimen>
     <dimen name="padding_layout">10dp</dimen>
 </resources>

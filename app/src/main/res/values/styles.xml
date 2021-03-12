@@ -25,21 +25,21 @@
         <item name="iconTint">@color/colorAccent</item>
         <item name="fontFamily">@font/montserrat_semi_bold</item>
         <item name="android:textColor">@color/colorAccent</item>
+        <item name="titleTextColor">@color/colorAccent</item>
         <item name="subtitleTextColor">@color/colorAccent</item>
         <item name="subtitleTextStyle">@font/montserrat_medium</item>
         <item name="colorControlNormal">@color/colorAccent</item>
         <item name="android:textSize">@dimen/toolbar_text_size</item>
+        <item name="searchHintIcon">@null</item>
 
     </style>
 
     <style name="CustomTabLayoutStyle">
-        <item name="background">@color/colorPrimary</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="tabIndicatorColor">@color/colorAccent</item>
         <item name="tabTextColor">@color/colorNoSelect</item>
         <item name="tabSelectedTextColor">@color/colorAccent</item>
-        <item name="tabIndicatorColor">@color/colorAccent</item>
-        <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:textSize">@dimen/tabLayout_text_size</item>
-
     </style>
 
     <style name="TitleTextStyle">

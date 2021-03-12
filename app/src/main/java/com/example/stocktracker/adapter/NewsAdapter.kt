@@ -1,7 +1,10 @@
 package com.example.stocktracker.adapter
 
+import android.graphics.Color
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocktracker.R
@@ -27,9 +30,13 @@ class NewsAdapter(private var listener: NewsClickListener) :
         return NewsViewHolder(binding)
     }
 
+    private var colors = arrayOf("#F0F4F7", "#FFFFFF")
+
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val item = newsList[position]
         holder.bind(item)
+        holder.itemView.setBackgroundColor(Color.parseColor(colors[position % 2]))
         holder.itemView.setOnClickListener {
             listener.showNews(item.url)
         }

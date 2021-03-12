@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".ui.detail.CardActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -17,14 +18,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:theme="@style/CustomToolBarStyle" />
+            android:theme="@style/CustomToolBarStyle"
+            app:layout_scrollFlags="scroll|enterAlways" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
+            style="@style/CustomTabLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/CustomTabLayoutStyle"
-            app:tabIndicatorColor="@color/colorAccent" />
+            app:tabGravity="fill"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
