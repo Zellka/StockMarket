@@ -135,7 +135,7 @@ class Marker(context: Context) : MarkerView(context, R.layout.marker) {
         val date = LocalDate.parse(timestampAsDateString, format)
 
         valueView.text = entry.y.toString() + '$'
-        dateView.text = date. dayOfMonth.toString() + ' ' + date.monthValue.toString()
+        dateView.text = date. dayOfMonth.toString() + ' ' + date.month.toString()
     }
 
     override fun getOffset(): MPPointF {

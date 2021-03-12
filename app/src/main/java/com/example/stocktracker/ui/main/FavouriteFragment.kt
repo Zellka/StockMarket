@@ -83,7 +83,7 @@ class FavouriteFragment : Fragment(), StockClickListener {
             Pair("TICKER_STOCK", stockItem.ticker),
             Pair("COMPANY_NAME_STOCK", stockItem.companyName)
         )
-        intent.putExtra("STOCK_DATA", bundle)
+        intent.putExtras(bundle)
         startActivity(intent)
     }
 }
