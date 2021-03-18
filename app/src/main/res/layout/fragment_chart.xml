@@ -1,98 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.detail.ChartFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-
-    <TextView
-        android:id="@+id/stock_price_current"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <data />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.detail.ChartFragment">
 
         <TextView
-            android:id="@+id/stock_price_changes"
+            android:id="@+id/stock_price_current"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/stock_price_percentage"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/stock_price_changes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/stock_price_percentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/line_chart"
+            android:layout_width="fill_parent"
+            android:layout_height="300dp" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:weightSum="4">
+
+            <Button
+                android:id="@+id/period1d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_selector"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/period_1d"
+                android:textColor="@drawable/text_color_selector"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/period1w"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_selector"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/period_1w"
+                android:textColor="@drawable/text_color_selector"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/period1m"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_selector"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/period_1m"
+                android:textColor="@drawable/text_color_selector"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/period12m"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_selector"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/period_12m"
+                android:textColor="@drawable/text_color_selector"
+                android:textSize="16sp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <Button
+            android:id="@+id/btn_buy"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_pressed"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/buy_now"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/line_chart"
-        android:layout_width="fill_parent"
-        android:layout_height="300dp" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="wrap_content"
-        android:weightSum="4"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/period1d"
-            android:background="@drawable/button_no_pressed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/montserrat_medium"
-            android:text="D" />
-
-        <Button
-            android:id="@+id/period1w"
-            android:background="@drawable/button_no_pressed"
-            android:fontFamily="@font/montserrat_medium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:text="W" />
-
-        <Button
-            android:id="@+id/period1m"
-            android:background="@drawable/button_no_pressed"
-            android:fontFamily="@font/montserrat_medium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:text="M" />
-
-        <Button
-            android:id="@+id/period12m"
-            android:background="@drawable/button_no_pressed"
-            android:fontFamily="@font/montserrat_medium"
-            android:layout_width="match_parent"
-            android:layout_margin="10dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Y" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <Button
-        android:id="@+id/btn_buy"
-        android:textColor="@color/colorPrimary"
-        android:fontFamily="@font/montserrat_medium"
-        android:background="@drawable/button_pressed"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Buy now" />
-
-
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
