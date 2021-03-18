@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="16dp">
@@ -12,7 +13,8 @@
         android:layout_marginTop="15dp"
         android:background="@color/colorPrimary"
         android:scaleType="centerCrop"
-        android:src="@drawable/no_internet_cat" />
+        android:src="@drawable/no_internet_cat"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/title"
