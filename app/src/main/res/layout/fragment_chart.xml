@@ -17,7 +17,7 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/line_chart"
                 android:layout_width="fill_parent"
-                android:layout_height="300dp"
+                android:layout_height="350dp"
                 android:layout_weight="1" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
