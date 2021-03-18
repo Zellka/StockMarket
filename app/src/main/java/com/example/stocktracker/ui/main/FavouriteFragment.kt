@@ -9,63 +9,64 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.stocktracker.R
 import com.example.stocktracker.adapter.StockAdapter
 import com.example.stocktracker.common.StockClickListener
+import com.example.stocktracker.databinding.FragmentStockBinding
 import com.example.stocktracker.entity.Stock
 import com.example.stocktracker.ui.detail.CardActivity
 import com.example.stocktracker.viewmodel.StockViewModel
 
 class FavouriteFragment : Fragment(), StockClickListener {
-
     private lateinit var stockViewModel: StockViewModel
-
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: StockAdapter
-    private lateinit var swipeRefresh: SwipeRefreshLayout
+
+    private lateinit var binding: FragmentStockBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         stockViewModel = ViewModelProvider(this).get(StockViewModel::class.java)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (activity as? AppCompatActivity)?.supportActionBar?.title = "Favourite"
+        (activity as? AppCompatActivity)?.supportActionBar?.title = context?.getString(R.string.title_favourite)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_stock, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(context),
+            R.layout.fragment_stock,
+            container,
+            false
+        )
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         stockViewModel.getAllStockList()
-
-        recyclerView = view.findViewById(R.id.recycler_view)
-        swipeRefresh = view.findViewById(R.id.swipe_refresh)
         adapter = StockAdapter(this)
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
 
         stockViewModel.getFavouriteList()
         stockViewModel.favouriteMutableLiveData.observe(viewLifecycleOwner) { data ->
             adapter.setList(data)
         }
 
-        swipeRefresh.setOnRefreshListener {
+        binding.swipeRefresh.setOnRefreshListener {
             stockViewModel.getFavouriteList()
             stockViewModel.favouriteMutableLiveData.observe(viewLifecycleOwner) { data ->
                 adapter.setList(data)
             }
-            swipeRefresh.isRefreshing = false
+            binding.swipeRefresh.isRefreshing = false
         }
-        recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

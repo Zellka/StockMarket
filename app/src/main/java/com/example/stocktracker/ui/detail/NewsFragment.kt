@@ -57,21 +57,7 @@ class NewsFragment : Fragment(), NewsClickListener {
                     progressBar.visibility = View.INVISIBLE
                 },
             )
-        } else {
-            this.context?.let {
-                showAlertDialog(
-                    it, "No internet connection",
-                    "No internet connection"
-                )
-            }
         }
-    }
-
-    private fun showAlertDialog(context: Context, title: String, message: String) {
-        val alertDialog: AlertDialog = AlertDialog.Builder(context).create();
-        alertDialog.setTitle(title);
-        alertDialog.setMessage(message)
-        alertDialog.show();
     }
 
     private fun isNetworkConnected(): Boolean {

@@ -1,9 +1,17 @@
 <resources>
     <string name="app_name">StockTracker</string>
-    <string name="title_activity_detail_stock">DetailStockActivity</string>
     <string name="tab_text_1">Chart</string>
     <string name="tab_text_2">News</string>
+    <string name="title_stock">Stocks</string>
     <string name="title_activity_card">CardActivity</string>
     <string name="title_search">Search</string>
     <string name="title_favourite">Favourite</string>
+    <string name="title_error_internet">Oops!</string>
+    <string name="no_internet_connection">No internet connection...</string>
+    <string name="period_1d">D</string>
+    <string name="period_1w">W</string>
+    <string name="period_1m">M</string>
+    <string name="period_12m">Y</string>
+    <string name="buy_now">Buy now</string>
+    <string name="search_hint">find company or ticker</string>
 </resources>
