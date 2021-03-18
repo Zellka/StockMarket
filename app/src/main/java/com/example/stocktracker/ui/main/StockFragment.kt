@@ -56,7 +56,7 @@ class StockFragment : Fragment(), StockClickListener {
         recyclerView = view.findViewById(R.id.recycler_view)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        adapter = StockAdapter(this,false)
+        adapter = StockAdapter(this)
         recyclerView.adapter = adapter
         getDataList()
         swipeRefresh.setOnRefreshListener {

@@ -6,8 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.stocktracker.api.NetworkClient
 import com.example.stocktracker.api.RetrofitServices
+import com.example.stocktracker.data.FavouriteList
 import com.example.stocktracker.entity.Stock
-import io.paperdb.Paper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +21,9 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
             .create(RetrofitServices::class.java)
 
     var stocksMutableLiveData: MutableLiveData<MutableList<Stock>> =
+        MutableLiveData<MutableList<Stock>>()
+
+    var favouriteMutableLiveData: MutableLiveData<MutableList<Stock>> =
         MutableLiveData<MutableList<Stock>>()
 
     fun getAllStockList() {
@@ -44,22 +47,10 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun updateItem(stockItem: Stock) {
-        val favouriteList = getFavouriteList()
-
-        val targetItem = favouriteList.singleOrNull { it.ticker == stockItem.ticker }
-        if (targetItem == null) {
-            favouriteList.add(stockItem)
-        } else {
-            favouriteList.remove(stockItem)
-        }
-        saveStock(favouriteList)
+        FavouriteList.updateItem(stockItem)
     }
 
-    private fun saveStock(stock: MutableList<Stock>) {
-        Paper.book().write("stock", stock)
-    }
-
-    fun getFavouriteList(): MutableList<Stock> {
-        return Paper.book().read("stock", mutableListOf())
+    fun getFavouriteList(){
+        favouriteMutableLiveData.value = FavouriteList.getFavouriteList()
     }
 }

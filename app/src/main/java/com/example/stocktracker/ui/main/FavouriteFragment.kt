@@ -50,11 +50,19 @@ class FavouriteFragment : Fragment(), StockClickListener {
 
         recyclerView = view.findViewById(R.id.recycler_view)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
-        adapter = StockAdapter(this, true)
+        adapter = StockAdapter(this)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        adapter.setList(stockViewModel.getFavouriteList())
+
+        stockViewModel.getFavouriteList()
+        stockViewModel.favouriteMutableLiveData.observe(viewLifecycleOwner) { data ->
+            adapter.setList(data)
+        }
+
         swipeRefresh.setOnRefreshListener {
-            adapter.setList(stockViewModel.getFavouriteList())
+            stockViewModel.getFavouriteList()
+            stockViewModel.favouriteMutableLiveData.observe(viewLifecycleOwner) { data ->
+                adapter.setList(data)
+            }
             swipeRefresh.isRefreshing = false
         }
         recyclerView.adapter = adapter
