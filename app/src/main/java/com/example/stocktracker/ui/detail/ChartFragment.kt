@@ -11,9 +11,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.stocktracker.R
+import com.example.stocktracker.databinding.FragmentChartBinding
 import com.example.stocktracker.viewmodel.ChartFactory
 import com.example.stocktracker.viewmodel.ChartViewModel
 import com.github.mikephil.charting.charts.LineChart
@@ -22,16 +24,13 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.utils.MPPointF
 import kotlinx.android.synthetic.main.marker.view.*
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class ChartFragment : Fragment() {
     private lateinit var chartViewModel: ChartViewModel
-
-    private lateinit var lineChart: LineChart
+    private lateinit var binding: FragmentChartBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,50 +43,51 @@ class ChartFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_chart, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(context),
+            R.layout.fragment_chart,
+            container,
+            false
+        )
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        lineChart = view.findViewById(R.id.line_chart)
-
         if (isNetworkConnected()) {
             configureLineChart()
-            chartViewModel.getStockData("1m", lineChart)
-            val btn1d: Button = view.findViewById(R.id.period1d)
-            val btn1w: Button = view.findViewById(R.id.period1w)
-            val btn1m: Button = view.findViewById(R.id.period1m)
-            val btn1y: Button = view.findViewById(R.id.period12m)
-            btn1d.setOnClickListener {
-                chartViewModel.getStockData("1d", lineChart)
+            chartViewModel.getStockData("1m", binding.lineChart)
+            binding.period1d.setOnClickListener {
+                chartViewModel.getStockData("1d", binding.lineChart)
             }
-            btn1w.setOnClickListener {
-                chartViewModel.getStockData("1w", lineChart)
+            binding.period1w.setOnClickListener {
+                chartViewModel.getStockData("1w", binding.lineChart)
             }
-            btn1m.setOnClickListener {
-                chartViewModel.getStockData("1m", lineChart)
+            binding.period1m.setOnClickListener {
+                chartViewModel.getStockData("1m", binding.lineChart)
             }
-            btn1y.setOnClickListener {
-                chartViewModel.getStockData("1y", lineChart)
-
+            binding.period12m.setOnClickListener {
+                chartViewModel.getStockData("1y", binding.lineChart)
             }
         } else {
             this.context?.let {
                 showAlertDialog(
-                    it, "No internet connection",
-                    "No internet connection"
+                    it
                 )
-            };
+            }
         }
     }
 
-    private fun showAlertDialog(context: Context, title: String, message: String) {
-        val alertDialog: AlertDialog = AlertDialog.Builder(context).create();
-        alertDialog.setTitle(title)
-        alertDialog.setMessage(message)
-        alertDialog.show()
+    private fun showAlertDialog(context: Context) {
+        val view: View =
+            LayoutInflater.from(context).inflate(R.layout.custom_dialog, null)
+        val builder = AlertDialog.Builder(context)
+        builder.setView(view)
+            .setPositiveButton("OK") { dialog, id ->  dialog.cancel()
+            }
+        builder.create()
+        builder.show()
     }
 
     private fun isNetworkConnected(): Boolean {
@@ -98,16 +98,16 @@ class ChartFragment : Fragment() {
     }
 
     private fun configureLineChart() {
-        lineChart.setNoDataText(null)
-        lineChart.description = null
+        binding.lineChart.setNoDataText(null)
+        binding.lineChart.description = null
         val marker = Marker(this.requireContext())
-        marker.chartView = lineChart
-        lineChart.marker = marker
-        lineChart.animateY(2000)
-        lineChart.xAxis.isEnabled = false
-        lineChart.axisLeft.isEnabled = false
-        lineChart.axisRight.isEnabled = false
-        lineChart.invalidate()
+        marker.chartView = binding.lineChart
+        binding.lineChart.marker = marker
+        binding.lineChart.animateY(2000)
+        binding.lineChart.xAxis.isEnabled = false
+        binding.lineChart.axisLeft.isEnabled = false
+        binding.lineChart.axisRight.isEnabled = false
+        binding.lineChart.invalidate()
     }
 
     companion object {

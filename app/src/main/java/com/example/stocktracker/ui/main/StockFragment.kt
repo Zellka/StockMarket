@@ -5,31 +5,29 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
-import android.widget.ProgressBar
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.stocktracker.R
 import com.example.stocktracker.adapter.StockAdapter
 import com.example.stocktracker.common.StockClickListener
+import com.example.stocktracker.databinding.FragmentStockBinding
 import com.example.stocktracker.entity.Stock
 import com.example.stocktracker.ui.detail.CardActivity
 import com.example.stocktracker.viewmodel.StockViewModel
 
 class StockFragment : Fragment(), StockClickListener {
     private lateinit var stockViewModel: StockViewModel
-
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: StockAdapter
-    private lateinit var progressBar: ProgressBar
-    private lateinit var swipeRefresh: SwipeRefreshLayout
+
+    private lateinit var binding: FragmentStockBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,58 +38,64 @@ class StockFragment : Fragment(), StockClickListener {
     override fun onResume() {
         super.onResume()
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        (activity as? AppCompatActivity)?.supportActionBar?.title = "Stock"
+        (activity as? AppCompatActivity)?.supportActionBar?.title = context?.getString(R.string.title_stock)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_stock, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(context),
+            R.layout.fragment_stock,
+            container,
+            false
+        )
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBar = view.findViewById(R.id.progress_bar)
-        recyclerView = view.findViewById(R.id.recycler_view)
-        swipeRefresh = view.findViewById(R.id.swipe_refresh)
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
         adapter = StockAdapter(this)
-        recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter
         getDataList()
-        swipeRefresh.setOnRefreshListener {
-            progressBar.visibility = View.INVISIBLE
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.progressBar.visibility = View.INVISIBLE
             getDataList()
-            swipeRefresh.isRefreshing = false
+            binding.swipeRefresh.isRefreshing = false
         }
     }
 
     private fun getDataList(){
         if (isNetworkConnected()) {
             stockViewModel.getAllStockList()
-            progressBar.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
             stockViewModel.stocksMutableLiveData.observe(
                 viewLifecycleOwner,
                 { postModels ->
                     adapter.setList(postModels)
-                    progressBar.visibility = View.INVISIBLE
+                    binding.progressBar.visibility = View.INVISIBLE
                 }
             )
         } else {
             this.context?.let {
                 showAlertDialog(
-                    it, "No internet connection",
-                    "No internet connection"
+                    it
                 )
             };
         }
     }
 
-    private fun showAlertDialog(context: Context, title: String, message: String) {
-        val alertDialog: AlertDialog = AlertDialog.Builder(context).create();
-        alertDialog.setTitle(title)
-        alertDialog.setMessage(message)
-        alertDialog.show()
+    private fun showAlertDialog(context: Context) {
+        val view: View =
+            LayoutInflater.from(context).inflate(R.layout.custom_dialog, null)
+        val builder = AlertDialog.Builder(context)
+        builder.setView(view)
+            .setPositiveButton("OK") { dialog, id ->  dialog.cancel()
+            }
+        builder.create()
+        builder.show()
     }
 
     private fun isNetworkConnected(): Boolean {
@@ -126,7 +130,7 @@ class StockFragment : Fragment(), StockClickListener {
 
         if (id == R.id.action_search) {
             val searchView = item.actionView as SearchView
-            searchView.queryHint = "find company or ticker"
+            searchView.queryHint = context?.getString(R.string.search_hint)
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     return false
