@@ -89,7 +89,7 @@ class StockFragment : Fragment(), StockClickListener {
 
     private fun showAlertDialog(context: Context) {
         val view: View =
-            LayoutInflater.from(context).inflate(R.layout.custom_dialog, null)
+            LayoutInflater.from(context).inflate(R.layout.connect_message_layout, null)
         val builder = AlertDialog.Builder(context)
         builder.setView(view)
             .setPositiveButton("OK") { dialog, id ->  dialog.cancel()

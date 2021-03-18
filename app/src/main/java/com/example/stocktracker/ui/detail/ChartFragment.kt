@@ -2,15 +2,16 @@ package com.example.stocktracker.ui.detail
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,23 +19,27 @@ import com.example.stocktracker.R
 import com.example.stocktracker.databinding.FragmentChartBinding
 import com.example.stocktracker.viewmodel.ChartFactory
 import com.example.stocktracker.viewmodel.ChartViewModel
-import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.MPPointF
 import kotlinx.android.synthetic.main.marker.view.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class ChartFragment : Fragment() {
     private lateinit var chartViewModel: ChartViewModel
     private lateinit var binding: FragmentChartBinding
+    private lateinit var title: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val title: String = arguments?.getString("title").toString()
+        title = arguments?.getString("title").toString()
         chartViewModel = ViewModelProvider(this, ChartFactory(activity!!.application, title)).get(
             ChartViewModel::class.java
         )
@@ -57,34 +62,79 @@ class ChartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (isNetworkConnected()) {
             configureLineChart()
-            chartViewModel.getStockData("1m", binding.lineChart)
+            getChart("1m")
             binding.period1d.setOnClickListener {
-                chartViewModel.getStockData("1d", binding.lineChart)
+                getChart("1d")
             }
             binding.period1w.setOnClickListener {
-                chartViewModel.getStockData("1w", binding.lineChart)
+                getChart("1w")
             }
             binding.period1m.setOnClickListener {
-                chartViewModel.getStockData("1m", binding.lineChart)
+                getChart("1m")
             }
             binding.period12m.setOnClickListener {
-                chartViewModel.getStockData("1y", binding.lineChart)
+                getChart("1y")
+            }
+            binding.btnBuy.setOnClickListener {
+                this.context?.let {
+                    showMessage(it, R.layout.buy_message_layout)
+                }
             }
         } else {
             this.context?.let {
-                showAlertDialog(
-                    it
-                )
+                showMessage(it, R.layout.connect_message_layout)
             }
         }
     }
 
-    private fun showAlertDialog(context: Context) {
+    private fun getChart(frequency: String) {
+        val pricesHigh: MutableList<Entry> = ArrayList()
+        chartViewModel.getStockData(frequency)
+        chartViewModel.chartMutableLiveData.observe(
+            viewLifecycleOwner,
+            { data ->
+                for (i in data.prices.indices) {
+                    val x: Float = data.prices[i].date.toFloat()
+                    val y: Float = data.prices[i].high
+                    if (y != 0f) {
+                        pricesHigh.add(Entry(x, data.prices[i].high))
+                    }
+                }
+                pricesHigh.sortBy { it.x }
+                setLineChartData(pricesHigh)
+            }
+        )
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun setLineChartData(
+        pricesHigh: MutableList<Entry>
+    ) {
+        val dataSets: ArrayList<ILineDataSet> = ArrayList()
+        val drawableHigh = ContextCompat.getDrawable(this.requireContext(), R.drawable.chart_high)
+        val highLineDataSet = LineDataSet(pricesHigh, "$title Price")
+        highLineDataSet.setDrawCircles(false)
+        highLineDataSet.setDrawCircleHole(false)
+        highLineDataSet.circleRadius = 15f
+        highLineDataSet.setDrawValues(false)
+        highLineDataSet.lineWidth = 3f
+        highLineDataSet.color = Color.BLACK
+        highLineDataSet.setCircleColor(Color.BLACK)
+        highLineDataSet.setDrawFilled(true)
+        highLineDataSet.fillDrawable = drawableHigh
+        dataSets.add(highLineDataSet)
+        val lineData = LineData(dataSets)
+        binding.lineChart.data = lineData
+        binding.lineChart.invalidate()
+    }
+
+    private fun showMessage(context: Context, layout: Int) {
         val view: View =
-            LayoutInflater.from(context).inflate(R.layout.custom_dialog, null)
+            LayoutInflater.from(context).inflate(layout, null)
         val builder = AlertDialog.Builder(context)
         builder.setView(view)
-            .setPositiveButton("OK") { dialog, id ->  dialog.cancel()
+            .setPositiveButton("OK") { dialog, id ->
+                dialog.cancel()
             }
         builder.create()
         builder.show()
@@ -135,7 +185,7 @@ class Marker(context: Context) : MarkerView(context, R.layout.marker) {
         val date = LocalDate.parse(timestampAsDateString, format)
 
         valueView.text = entry.y.toString() + '$'
-        dateView.text = date. dayOfMonth.toString() + ' ' + date.month.toString()
+        dateView.text = date.dayOfMonth.toString() + ' ' + date.month.toString()
     }
 
     override fun getOffset(): MPPointF {

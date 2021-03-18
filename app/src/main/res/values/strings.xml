@@ -14,4 +14,7 @@
     <string name="period_12m">Y</string>
     <string name="buy_now">Buy now</string>
     <string name="search_hint">find company or ticker</string>
+    <string name="server_error">server error</string>
+    <string name="success">Success</string>
+    <string name="purchase_was_successful">Purchase was successful</string>
 </resources>

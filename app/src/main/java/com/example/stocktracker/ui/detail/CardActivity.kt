@@ -15,7 +15,6 @@ class CardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         val arguments = intent.extras
         val title = arguments?.getString("TICKER_STOCK").toString()
         val subtitle = arguments?.getString("COMPANY_NAME_STOCK").toString()

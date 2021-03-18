@@ -4,6 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.stocktracker.R
 import com.example.stocktracker.api.NetworkClient
 import com.example.stocktracker.api.RetrofitServices
 import com.example.stocktracker.data.FavouriteList
@@ -36,12 +37,12 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
                 if (response.body() != null) {
                     stocksMutableLiveData.value = response.body()
                 } else {
-                    Toast.makeText(context, "server error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context?.getString(R.string.server_error), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<MutableList<Stock>>, t: Throwable) {
-                Toast.makeText(context, "server error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context?.getString(R.string.server_error), Toast.LENGTH_SHORT).show()
             }
         })
     }

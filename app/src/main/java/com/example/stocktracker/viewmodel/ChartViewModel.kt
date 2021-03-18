@@ -1,40 +1,35 @@
 package com.example.stocktracker.viewmodel
 
-import android.annotation.SuppressLint
 import android.app.Application
-import android.graphics.Color
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.stocktracker.R
 import com.example.stocktracker.api.NetworkClient
 import com.example.stocktracker.api.RetrofitServices
 import com.example.stocktracker.entity.HistoricalDataResponse
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
-
 
 class ChartViewModel(application: Application, private val ticker: String) : AndroidViewModel(
     application
 ) {
     private val BASE_URL = "https://wft-geo-db.p.rapidapi.com/"
     private val context = getApplication<Application>().applicationContext
+
+    var chartMutableLiveData: MutableLiveData<HistoricalDataResponse> =
+        MutableLiveData<HistoricalDataResponse>()
+
     private val service: RetrofitServices
         get() {
             return NetworkClient.getClient(BASE_URL, context)
                 .create(RetrofitServices::class.java)
         }
 
-    fun getStockData(frequency: String, lineChart: LineChart) {
+    fun getStockData(frequency: String) {
         val endTime: Long = System.currentTimeMillis() / 1000;
         var startTime: Long = 0
         when (frequency) {
@@ -54,54 +49,32 @@ class ChartViewModel(application: Application, private val ticker: String) : And
                 call: Call<HistoricalDataResponse>,
                 response: Response<HistoricalDataResponse>
             ) {
-                val pricesHigh: MutableList<Entry> = ArrayList()
                 if (response.body() != null) {
-                    for (i in response.body()!!.prices.indices) {
-                        val x: Float = response.body()!!.prices[i].date.toFloat()
-                        val y: Float = response.body()!!.prices[i].high
-                        if (y != 0f) {
-                            pricesHigh.add(Entry(x, response.body()!!.prices[i].high))
-                        }
-                    }
-                    pricesHigh.sortBy { it.x }
-                    setLineChartData(pricesHigh, ticker, lineChart)
+                    chartMutableLiveData.value = response.body()
                 } else {
-                    Toast.makeText(context, "server error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        context?.getString(R.string.server_error),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<HistoricalDataResponse>, t: Throwable) {
-                Toast.makeText(context, "server error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context?.getString(R.string.server_error),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         })
     }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun setLineChartData(
-        pricesHigh: MutableList<Entry>, title: String, lineChart: LineChart
-    ) {
-        val dataSets: ArrayList<ILineDataSet> = ArrayList()
-        val highLineDataSet = LineDataSet(pricesHigh,null)
-        highLineDataSet.setDrawCircles(false)
-        highLineDataSet.setDrawCircleHole(false)
-        highLineDataSet.circleRadius = 15f
-        highLineDataSet.setDrawValues(false)
-        highLineDataSet.lineWidth = 3f
-        highLineDataSet.color = Color.BLACK
-        highLineDataSet.setCircleColor(Color.BLACK)
-        highLineDataSet.setDrawFilled(true)
-        val drawable = ContextCompat.getDrawable(context, R.drawable.chart_fill)
-        highLineDataSet.fillDrawable = drawable
-        dataSets.add(highLineDataSet)
-        val lineData = LineData(dataSets)
-        lineChart.data = lineData
-        lineChart.invalidate()
-    }
 }
 
 @Suppress("UNCHECKED_CAST")
-class ChartFactory(private val app: Application, private val ticker: String) : ViewModelProvider.Factory {
+class ChartFactory(private val app: Application, private val ticker: String) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ChartViewModel::class.java)) {
             return ChartViewModel(app, ticker) as T

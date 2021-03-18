@@ -15,4 +15,7 @@
     <string name="period_12m">Г</string>
     <string name="buy_now">Купить сейчас</string>
     <string name="search_hint">найти компанию или тикер</string>
+    <string name="server_error">ошибка сервера</string>
+    <string name="success">Успех</string>
+    <string name="purchase_was_successful">Покупка успешно совершена</string>
 </resources>
