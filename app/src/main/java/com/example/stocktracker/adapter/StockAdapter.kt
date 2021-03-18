@@ -10,13 +10,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocktracker.R
 import com.example.stocktracker.common.StockClickListener
+import com.example.stocktracker.data.FavouriteList
 import com.example.stocktracker.databinding.StockItemBinding
 import com.example.stocktracker.entity.Stock
 import kotlinx.android.synthetic.main.stock_item.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class StockAdapter(private var listener: StockClickListener, var isFavourite: Boolean) :
+class StockAdapter(private var listener: StockClickListener) :
     RecyclerView.Adapter<StockAdapter.StockViewHolder>(), Filterable {
     private var stocks: MutableList<Stock> = ArrayList()
     private var stockFilterList: MutableList<Stock> = ArrayList()
@@ -39,7 +40,7 @@ class StockAdapter(private var listener: StockClickListener, var isFavourite: Bo
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
         val item = stockFilterList[position]
-        holder.bind(item, listener, isFavourite)
+        holder.bind(item, listener)
         holder.itemView.setBackgroundColor(Color.parseColor(colors[position % 2]))
         holder.itemView.price_current.text = holder.itemView.price_current.text.toString() + '$'
         holder.itemView.setOnClickListener {
@@ -55,7 +56,7 @@ class StockAdapter(private var listener: StockClickListener, var isFavourite: Bo
             holder.itemView.price_change.setTextColor(Color.parseColor("#B22424"))
             holder.itemView.price_change.text = holder.itemView.price_change.text.toString() + '$'
         }
-        if (isFavourite) {
+        if (FavouriteList.isFavourite(item)) {
             holder.itemView.btn_add_to_favourite.setImageResource(R.drawable.ic_star_select)
         } else {
             holder.itemView.btn_add_to_favourite.setImageResource(R.drawable.ic_star_no_select)
@@ -67,9 +68,9 @@ class StockAdapter(private var listener: StockClickListener, var isFavourite: Bo
     class StockViewHolder(private val binding: StockItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("CheckResult")
-        fun bind(data: Stock, listener: StockClickListener, isFavourite: Boolean) {
+        fun bind(data: Stock, listener: StockClickListener) {
             binding.stock = data
-            var flag = !isFavourite
+            var flag = !FavouriteList.isFavourite(data)
             binding.btnAddToFavourite.setOnClickListener {
                 listener.changeFavouriteList(data)
                 if (flag) {
