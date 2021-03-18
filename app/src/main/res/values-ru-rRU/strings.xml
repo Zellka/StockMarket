@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StockTracker</string>
+    <string name="tab_text_1">Диаграмма</string>
+    <string name="tab_text_2">Новости</string>
+    <string name="title_stock">Акции</string>
+    <string name="title_activity_card">CardActivity</string>
+    <string name="title_search">Поиск</string>
+    <string name="title_favourite">Избранное</string>
+    <string name="title_error_internet">Упс!</string>
+    <string name="no_internet_connection">Отсутствует интернет соединение...</string>
+    <string name="period_1d">Д</string>
+    <string name="period_1w">Н</string>
+    <string name="period_1m">М</string>
+    <string name="period_12m">Г</string>
+    <string name="buy_now">Купить сейчас</string>
+    <string name="search_hint">найти компанию или тикер</string>
+</resources>
