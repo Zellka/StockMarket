@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:context=".ui.detail.ChartFragment">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/line_chart"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:weightSum="4">
+
+                <Button
+                    android:id="@+id/period1d"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_selector"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="@string/period_1d"
+                    android:textColor="@drawable/text_color_selector"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/period1w"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_selector"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="@string/period_1w"
+                    android:textColor="@drawable/text_color_selector"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/period1m"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_selector"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="@string/period_1m"
+                    android:textColor="@drawable/text_color_selector"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/period12m"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_selector"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="@string/period_12m"
+                    android:textColor="@drawable/text_color_selector"
+                    android:textSize="16sp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <Button
+                android:id="@+id/btn_buy"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_pressed"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/buy_now"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+
+</layout>
