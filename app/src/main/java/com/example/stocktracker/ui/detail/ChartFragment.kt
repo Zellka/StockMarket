@@ -36,10 +36,12 @@ class ChartFragment : Fragment() {
     private lateinit var chartViewModel: ChartViewModel
     private lateinit var binding: FragmentChartBinding
     private lateinit var title: String
+    private lateinit var currentPrice: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = arguments?.getString("title").toString()
+        currentPrice = arguments?.getString("price").toString()
         chartViewModel = ViewModelProvider(this, ChartFactory(activity!!.application, title)).get(
             ChartViewModel::class.java
         )
@@ -58,10 +60,12 @@ class ChartFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (isNetworkConnected()) {
             configureLineChart()
+            binding.btnBuy.text = context?.getString(R.string.buy_now) + ' ' + currentPrice + '$'
             getChart("1m")
             binding.period1d.setOnClickListener {
                 getChart("1d")
@@ -101,18 +105,19 @@ class ChartFragment : Fragment() {
                     }
                 }
                 pricesHigh.sortBy { it.x }
-                setLineChartData(pricesHigh)
+                setLineChartData(pricesHigh, frequency)
             }
         )
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun setLineChartData(
-        pricesHigh: MutableList<Entry>
+        pricesHigh: MutableList<Entry>,
+        frequency: String
     ) {
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
         val drawableHigh = ContextCompat.getDrawable(this.requireContext(), R.drawable.chart_high)
-        val highLineDataSet = LineDataSet(pricesHigh, "$title Price")
+        val highLineDataSet = LineDataSet(pricesHigh, "$title Price $frequency")
         highLineDataSet.setDrawCircles(false)
         highLineDataSet.setDrawCircleHole(false)
         highLineDataSet.circleRadius = 15f
@@ -162,10 +167,11 @@ class ChartFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(title: String) =
+        fun newInstance(title: String, currentPrice: String) =
             ChartFragment().apply {
                 arguments = Bundle().apply {
                     putString("title", title)
+                    putString("price", currentPrice)
                 }
             }
     }

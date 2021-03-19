@@ -40,7 +40,7 @@ class CardActivity : AppCompatActivity() {
         supportActionBar!!.title = title
         supportActionBar!!.subtitle = subtitle
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, title)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, title, price)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
