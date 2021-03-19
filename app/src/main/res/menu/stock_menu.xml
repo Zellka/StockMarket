@@ -11,7 +11,7 @@
         app:showAsAction="always|collapseActionView" />
     <item
         android:id="@+id/action_favourite"
-        android:icon="@drawable/ic_star"
+        android:icon="@drawable/ic_star_24"
         android:title="@string/title_favourite"
         android:iconTint="@color/colorAccent"
         app:showAsAction="always" />

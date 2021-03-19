@@ -39,7 +39,7 @@
                 android:background="@null"
                 android:paddingStart="@dimen/padding_item"
                 android:paddingTop="@dimen/padding_item"
-                android:src="@drawable/ic_star_no_select"
+                android:src="@drawable/ic_star_16"
                 tools:ignore="RtlSymmetry" />
 
             <androidx.appcompat.widget.AppCompatTextView
