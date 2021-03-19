@@ -90,7 +90,10 @@ class FavouriteFragment : Fragment(), StockClickListener {
         val intent = Intent(this.context, CardActivity::class.java)
         val bundle = bundleOf(
             Pair("TICKER_STOCK", stockItem.ticker),
-            Pair("COMPANY_NAME_STOCK", stockItem.companyName)
+            Pair("COMPANY_NAME_STOCK", stockItem.companyName),
+            Pair("PRICE_STOCK", stockItem.price),
+            Pair("CHANGES_STOCK", stockItem.changes),
+            Pair("CHANGES_PERCENTAGE_STOCK", stockItem.changesPercentage)
         )
         intent.putExtras(bundle)
         startActivity(intent)

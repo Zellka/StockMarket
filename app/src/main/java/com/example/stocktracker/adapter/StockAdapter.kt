@@ -57,9 +57,9 @@ class StockAdapter(private var listener: StockClickListener) :
             holder.itemView.price_change.text = holder.itemView.price_change.text.toString() + '$'
         }
         if (FavouriteList.isFavourite(item)) {
-            holder.itemView.btn_add_to_favourite.setImageResource(R.drawable.ic_star_select)
+            holder.itemView.btn_add_to_favourite.setImageResource(R.drawable.ic_star_select_16)
         } else {
-            holder.itemView.btn_add_to_favourite.setImageResource(R.drawable.ic_star_no_select)
+            holder.itemView.btn_add_to_favourite.setImageResource(R.drawable.ic_star_16)
         }
     }
 
@@ -74,10 +74,10 @@ class StockAdapter(private var listener: StockClickListener) :
             binding.btnAddToFavourite.setOnClickListener {
                 listener.changeFavouriteList(data)
                 if (flag) {
-                    binding.btnAddToFavourite.setImageResource(R.drawable.ic_star_select)
+                    binding.btnAddToFavourite.setImageResource(R.drawable.ic_star_select_16)
                     flag = !flag
                 } else {
-                    binding.btnAddToFavourite.setImageResource(R.drawable.ic_star_no_select)
+                    binding.btnAddToFavourite.setImageResource(R.drawable.ic_star_16)
                     flag = !flag
                 }
             }
