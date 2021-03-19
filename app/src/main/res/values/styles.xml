@@ -35,6 +35,19 @@
 
     </style>
 
+    <style name="CustomToolBarTabLayoutStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="background">@color/colorPrimary</item>
+        <item name="fontFamily">@font/montserrat_semi_bold</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="titleTextColor">@color/colorAccent</item>
+        <item name="subtitleTextColor">@color/colorAccent</item>
+        <item name="subtitleTextStyle">@font/montserrat_medium</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/toolbar_text_size</item>
+        <item name="searchHintIcon">@null</item>
+
+    </style>
+
     <style name="CustomTabLayoutStyle">
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="tabIndicatorColor">@color/colorAccent</item>
