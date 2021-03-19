@@ -23,27 +23,4 @@ class MainActivity : AppCompatActivity(){
             supportFragmentManager.beginTransaction().add(R.id.fragment_container, fragment).commit()
         }
     }
-
-    override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0) {
-            supportActionBar?.setDisplayHomeAsUpEnabled(supportFragmentManager.backStackEntryCount > 1);
-            supportFragmentManager.popBackStack();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                supportFragmentManager?.popBackStack()
-                supportActionBar?.setDisplayHomeAsUpEnabled(false)
-                supportActionBar?.title = "Stock"
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
 }
