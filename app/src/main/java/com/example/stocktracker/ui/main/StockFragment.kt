@@ -35,12 +35,6 @@ class StockFragment : Fragment(), StockClickListener {
         setHasOptionsMenu(true)
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        (activity as? AppCompatActivity)?.supportActionBar?.title = context?.getString(R.string.title_stock)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -152,5 +146,11 @@ class StockFragment : Fragment(), StockClickListener {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as? AppCompatActivity)?.supportActionBar?.title = context?.getString(R.string.title_stock)
     }
 }
