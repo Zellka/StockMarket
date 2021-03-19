@@ -122,7 +122,7 @@ class StockFragment : Fragment(), StockClickListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu, menu)
+        inflater.inflate(R.menu.stock_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
