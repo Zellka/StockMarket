@@ -6,6 +6,7 @@
     <string name="title_activity_card">CardActivity</string>
     <string name="title_search">Search</string>
     <string name="title_favourite">Favourite</string>
+    <string name="title_add_to_favourite">ButtonFavourite</string>
     <string name="title_error_internet">Oops!</string>
     <string name="no_internet_connection">No internet connection...</string>
     <string name="period_1d">D</string>
