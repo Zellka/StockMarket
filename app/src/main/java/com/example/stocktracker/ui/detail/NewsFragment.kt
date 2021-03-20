@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocktracker.R
 import com.example.stocktracker.adapter.NewsAdapter
-import com.example.stocktracker.common.NewsClickListener
+import com.example.stocktracker.common.OpenableNews
 import com.example.stocktracker.viewmodel.NewsFactory
 import com.example.stocktracker.viewmodel.NewsViewModel
 
-class NewsFragment : Fragment(), NewsClickListener {
+class NewsFragment : Fragment(), OpenableNews {
     private lateinit var newsViewModel: NewsViewModel
 
     private lateinit var recyclerView: RecyclerView
@@ -79,7 +79,7 @@ class NewsFragment : Fragment(), NewsClickListener {
             }
     }
 
-    override fun showNews(url: String) {
+    override fun openNews(url: String) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(browserIntent)
     }

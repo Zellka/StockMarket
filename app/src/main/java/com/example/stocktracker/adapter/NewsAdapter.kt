@@ -8,12 +8,12 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stocktracker.R
-import com.example.stocktracker.common.NewsClickListener
+import com.example.stocktracker.common.OpenableNews
 import com.example.stocktracker.databinding.NewsItemBinding
 import com.example.stocktracker.entity.News
 import kotlin.collections.ArrayList
 
-class NewsAdapter(private var listener: NewsClickListener) :
+class NewsAdapter(private var listener: OpenableNews) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     private var newsList: MutableList<News> = ArrayList()
 
@@ -32,13 +32,12 @@ class NewsAdapter(private var listener: NewsClickListener) :
 
     private var colors = arrayOf("#F0F4F7", "#FFFFFF")
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val item = newsList[position]
         holder.bind(item)
         holder.itemView.setBackgroundColor(Color.parseColor(colors[position % 2]))
         holder.itemView.setOnClickListener {
-            listener.showNews(item.url)
+            listener.openNews(item.url)
         }
     }
 
@@ -46,7 +45,6 @@ class NewsAdapter(private var listener: NewsClickListener) :
 
     class NewsViewHolder(private val binding: NewsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(data: News) {
             binding.news = data
             binding.executePendingBindings()

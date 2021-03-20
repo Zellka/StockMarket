@@ -51,7 +51,6 @@ class FavouriteFragment : Fragment(), StockClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        stockViewModel.getAllStockList()
         adapter = StockAdapter(this)
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
 
@@ -82,12 +81,12 @@ class FavouriteFragment : Fragment(), StockClickListener {
         }
     }
 
-    override fun changeFavouriteList(stockItem: Stock) {
+    override fun addToFavourites(stockItem: Stock) {
         Toast.makeText(this.context, stockItem.ticker, Toast.LENGTH_SHORT).show()
         stockViewModel.updateItem(stockItem)
     }
 
-    override fun showDetailsStock(stockItem: Stock) {
+    override fun showStock(stockItem: Stock) {
         val intent = Intent(this.context, CardActivity::class.java)
         val bundle = bundleOf(
             Pair("TICKER_STOCK", stockItem.ticker),

@@ -44,7 +44,7 @@ class StockAdapter(private var listener: StockClickListener) :
         holder.itemView.setBackgroundColor(Color.parseColor(colors[position % 2]))
         holder.itemView.price_current.text = holder.itemView.price_current.text.toString() + '$'
         holder.itemView.setOnClickListener {
-            listener.showDetailsStock(item)
+            listener.showStock(item)
         }
         if (holder.itemView.change_percentage.text.contains('+')) {
             holder.itemView.change_percentage.setTextColor(Color.parseColor("#24B25D"))
@@ -72,7 +72,7 @@ class StockAdapter(private var listener: StockClickListener) :
             binding.stock = data
             var flag = !FavouriteList.isFavourite(data)
             binding.btnAddToFavourite.setOnClickListener {
-                listener.changeFavouriteList(data)
+                listener.addToFavourites(data)
                 if (flag) {
                     binding.btnAddToFavourite.setImageResource(R.drawable.ic_star_select_16)
                     flag = !flag

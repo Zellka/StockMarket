@@ -74,14 +74,14 @@ class StockFragment : Fragment(), StockClickListener {
             )
         } else {
             this.context?.let {
-                showAlertDialog(
+                showConnectionMessage(
                     it
                 )
-            };
+            }
         }
     }
 
-    private fun showAlertDialog(context: Context) {
+    private fun showConnectionMessage(context: Context) {
         val view: View =
             LayoutInflater.from(context).inflate(R.layout.connect_message_layout, null)
         val builder = AlertDialog.Builder(context)
@@ -99,12 +99,12 @@ class StockFragment : Fragment(), StockClickListener {
                 activeNetwork.isConnectedOrConnecting
     }
 
-    override fun changeFavouriteList(stockItem: Stock) {
+    override fun addToFavourites(stockItem: Stock) {
         Toast.makeText(this.context, stockItem.ticker, Toast.LENGTH_SHORT).show()
         stockViewModel.updateItem(stockItem)
     }
 
-    override fun showDetailsStock(stockItem: Stock) {
+    override fun showStock(stockItem: Stock) {
         val intent = Intent(this.context, CardActivity::class.java)
         val bundle = bundleOf(
             Pair("TICKER_STOCK", stockItem.ticker),
