@@ -3,7 +3,7 @@
 
 Stock tracking application with minimal functionality, which is enough to be useful.
 
-*Project for Yandex mobile development school*
+Project for Yandex mobile development school.
 
 # Screenshots:
 ![](https://github.com/Zellka/StockTracker/blob/master/images/1.png)
@@ -38,5 +38,3 @@ From Android Studio, select **Import Project**, then select the root folder of t
 
 # Author: 
 Ilona Zelinskaya
-
-*Project for Yandex mobile development school*
