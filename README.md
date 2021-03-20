@@ -8,7 +8,8 @@ Stock tracking application with minimal functionality, which is enough to be use
 ![](https://github.com/Zellka/StockTracker/blob/master/images/2.png)
 
 # App preview
-.....
+![](https://github.com/Zellka/StockTracker/blob/master/images/app_preview.gif)
+
 # Installation
 The app can be installed using Android Studio.
 
