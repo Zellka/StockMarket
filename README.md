@@ -36,3 +36,5 @@ From Android Studio, select **Import Project**, then select the root folder of t
 
 # Author: 
 Ilona Zelinskaya
+
+*Project for Yandex mobile development school*
