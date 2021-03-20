@@ -32,7 +32,8 @@ class FavouriteFragment : Fragment(), StockClickListener {
         setHasOptionsMenu(true)
         stockViewModel = ViewModelProvider(this).get(StockViewModel::class.java)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (activity as? AppCompatActivity)?.supportActionBar?.title = context?.getString(R.string.title_favourite)
+        (activity as? AppCompatActivity)?.supportActionBar?.title =
+            context?.getString(R.string.title_favourite)
     }
 
     override fun onCreateView(

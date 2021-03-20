@@ -37,12 +37,20 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
                 if (response.body() != null) {
                     stocksMutableLiveData.value = response.body()
                 } else {
-                    Toast.makeText(context, context?.getString(R.string.server_error), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        context?.getString(R.string.server_error),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<MutableList<Stock>>, t: Throwable) {
-                Toast.makeText(context, context?.getString(R.string.server_error), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context?.getString(R.string.server_error),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
@@ -51,7 +59,7 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
         FavouriteList.updateItem(stockItem)
     }
 
-    fun getFavouriteList(){
+    fun getFavouriteList() {
         favouriteMutableLiveData.value = FavouriteList.getFavouriteList()
     }
 }

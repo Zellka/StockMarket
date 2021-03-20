@@ -15,7 +15,8 @@ object NetworkClient {
             .cache(cache)
             .addInterceptor { chain ->
                 var request = chain.request()
-                request = request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
+                request =
+                    request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
                 chain.proceed(request)
             }
 

@@ -14,7 +14,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NewsViewModel(application: Application, private val ticker: String) : AndroidViewModel(application) {
+class NewsViewModel(application: Application, private val ticker: String) :
+    AndroidViewModel(application) {
 
     private val BASE_URL = "https://financialmodelingprep.com/api/v3/"
     private val context = getApplication<Application>().applicationContext
@@ -34,19 +35,28 @@ class NewsViewModel(application: Application, private val ticker: String) : Andr
                 if (response.body() != null) {
                     newsMutableLiveData.value = response.body()
                 } else {
-                    Toast.makeText(context, context?.getString(R.string.server_error), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        context?.getString(R.string.server_error),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<MutableList<News>>, t: Throwable) {
-                Toast.makeText(context, context?.getString(R.string.server_error), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context?.getString(R.string.server_error),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
 }
 
 @Suppress("UNCHECKED_CAST")
-class NewsFactory(private val app: Application, private val ticker: String) : ViewModelProvider.Factory {
+class NewsFactory(private val app: Application, private val ticker: String) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(NewsViewModel::class.java)) {
             return NewsViewModel(app, ticker) as T
