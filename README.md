@@ -17,7 +17,7 @@ This is the recommended and most straightforward method. First, clone the reposi
 ```
 git clone "https://github.com/Zellka/StockTracker"
 ```
-From Android Studio, select **Import Project**, then select the root folder of the cloned repository. Click **Make Project** to build the app and download all the required dependencies. Click **Run app** to install the app on your device or emulator.
+From Android Studio, select **Import Project**, then select the root folder of the cloned repository. Click **Make Project** to build the app and download all the required dependencies. Click **Run app** to install the app on your device or emulator. ![](https://github.com/Zellka/StockTracker/blob/master/images/app_preview.gif)
 
 # Libraries used and their documentation
 * Data Binding [Docs](https://developer.android.com/topic/libraries/data-binding?hl=lv)
