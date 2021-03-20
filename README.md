@@ -7,6 +7,8 @@ Stock tracking application with minimal functionality, which is enough to be use
 ![](https://github.com/Zellka/StockTracker/blob/master/images/1.png)
 ![](https://github.com/Zellka/StockTracker/blob/master/images/2.png)
 
+# App preview
+.....
 # Installation
 The app can be installed using Android Studio.
 
@@ -23,3 +25,10 @@ From Android Studio, select **Import Project**, then select the root folder of t
 * Picasso [Docs](https://square.github.io/picasso/)
 * MPAndroidChart [Docs](https://github.com/PhilJay/MPAndroidChart)
 * Paper [Docs](https://github.com/pilgr/Paper)
+
+***Note:*** Data is pulled from [Financial Modeling Prep](https://financialmodelingprep.com/) and [Yahoo Finance](https://rapidapi.com/apidojo/api/yahoo-finance1).
+
+# Localization
+* English
+* Russian
+* Ukrainian
