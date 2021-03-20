@@ -1,5 +1,5 @@
 # Stock Tracker
-![](https://github.com/Zellka/StockTracker/blob/master/images/icon.png)
+![](https://github.com/Zellka/StockTracker/blob/master/images/icon_app.png)
 
 Stock tracking application with minimal functionality, which is enough to be useful
 
