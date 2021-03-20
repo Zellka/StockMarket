@@ -34,5 +34,5 @@ From Android Studio, select **Import Project**, then select the root folder of t
 * Russian
 * Ukrainian
 
-
-**Author:** Ilona Zelinskaya
+# Author: 
+Ilona Zelinskaya
