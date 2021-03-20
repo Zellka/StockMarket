@@ -31,7 +31,6 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class ChartFragment : Fragment() {
     private lateinit var chartViewModel: ChartViewModel
     private lateinit var binding: FragmentChartBinding
@@ -60,7 +59,7 @@ class ChartFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (isNetworkConnected()) {
@@ -110,14 +109,20 @@ class ChartFragment : Fragment() {
         )
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setLineChartData(
         pricesHigh: MutableList<Entry>,
         frequency: String
     ) {
+        var period = ""
+        when (frequency) {
+            "1d" -> period = context?.getString(R.string.day).toString()
+            "1w" -> period = context?.getString(R.string.week).toString()
+            "1m" -> period = context?.getString(R.string.month).toString()
+            "1y" -> period = context?.getString(R.string.year).toString()
+        }
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
         val drawableHigh = ContextCompat.getDrawable(this.requireContext(), R.drawable.chart_high)
-        val highLineDataSet = LineDataSet(pricesHigh, "$title Price $frequency")
+        val highLineDataSet = LineDataSet(pricesHigh, "$title $period")
         highLineDataSet.setDrawCircles(false)
         highLineDataSet.setDrawCircleHole(false)
         highLineDataSet.circleRadius = 15f

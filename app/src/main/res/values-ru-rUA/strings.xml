@@ -11,9 +11,13 @@
     <string name="title_error_internet">Упс!</string>
     <string name="no_internet_connection">Відсутня інтернет з\'єднання...</string>
     <string name="period_1d">Д</string>
+    <string name="day">1 день</string>
     <string name="period_1w">Т</string>
+    <string name="week">1 тиждень</string>
     <string name="period_1m">М</string>
+    <string name="month">1 місяць</string>
     <string name="period_12m">Р</string>
+    <string name="year">1 рік</string>
     <string name="buy_now">Купити зараз</string>
     <string name="search_hint">знайти компанію або тікер</string>
     <string name="server_error">помилка сервера</string>

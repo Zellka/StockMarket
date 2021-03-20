@@ -10,9 +10,13 @@
     <string name="title_error_internet">Oops!</string>
     <string name="no_internet_connection">No internet connection...</string>
     <string name="period_1d">D</string>
+    <string name="day">1 day</string>
     <string name="period_1w">W</string>
+    <string name="week">1 week</string>
     <string name="period_1m">M</string>
+    <string name="month">1 month</string>
     <string name="period_12m">Y</string>
+    <string name="year">1 year</string>
     <string name="buy_now">Buy now</string>
     <string name="search_hint">find company or ticker</string>
     <string name="server_error">server error</string>
