@@ -17,7 +17,7 @@ interface RetrofitServices {
 
     @Headers(
         "x-rapidapi-host: apidojo-yahoo-finance-v1.p.rapidapi.com",
-        "x-rapidapi-key: ad994ea690msh0668f3785105ecfp15c8b2jsnd594ce1eb48e"
+        "x-rapidapi-key: 497797f393msha4fbba5d361f01cp1f871cjsn1d21bcbf71c7"
     )
     @GET("stock/v2/get-historical-data")
     fun getHistoricalData(
