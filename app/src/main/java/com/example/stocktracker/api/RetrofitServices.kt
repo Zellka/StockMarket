@@ -9,10 +9,10 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface RetrofitServices {
-    @GET("actives?apikey=2803cae49d539d5020e02b9de8803106")
+    @GET("actives?apikey=key")
     fun getStocks(): Call<MutableList<Stock>>
 
-    @GET("stock_news?apikey=2803cae49d539d5020e02b9de8803106")
+    @GET("stock_news?apikey=key")
     fun getNews(@Query("tickers") tickers: String): Call<MutableList<News>>
 
     @Headers(
