@@ -15,7 +15,7 @@ The app can be installed using Android Studio.
 
 This is the recommended and most straightforward method. First, clone the repository with:
 ```
-git clone "https://github.com/Zellka/StockTracker"
+git clone "https://github.com/Zellka/StockMarket"
 ```
 From Android Studio, select **Import Project**, then select the root folder of the cloned repository. Click **Make Project** to build the app and download all the required dependencies. Click **Run app** to install the app on your device or emulator.
 
